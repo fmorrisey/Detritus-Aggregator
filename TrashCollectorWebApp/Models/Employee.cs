@@ -8,12 +8,37 @@ using System.Threading.Tasks;
 
 namespace TrashCollectorWebApp.Models
 {
-    public class Employee : Person
+    public class Employee
     {
+        [Key]
+        public int ID { get; set; }
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
+        [Column("FirstName")]
+        [Display(Name = "First Name")]
+        public string FirstMidName { get; set; }
+
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return LastName + ", " + FirstMidName;
+            }
+        }
+        
+        [ForeignKey("Addresses")]
+        public Addresses Addresses { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

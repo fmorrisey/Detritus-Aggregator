@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,22 @@ namespace TrashCollectorWebApp.Data
         {
         }
 
-        public DbSet<Person> People { get; set; }
+        //public DbSet<Person> People { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>().ToTable("Person");
+
+            //modelBuilder.Entity<Person>().ToTable("Person");
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityRole>()
+            .HasData(
+            new IdentityRole
+            {
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            }
+            );
         }
 
             
