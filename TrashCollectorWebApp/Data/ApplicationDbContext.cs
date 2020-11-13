@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TrashCollectorWebApp.Models;
 
 namespace TrashCollectorWebApp.Data
 {
@@ -12,5 +13,16 @@ namespace TrashCollectorWebApp.Data
             : base(options)
         {
         }
+
+        public DbSet<Person> People { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Person>().ToTable("Person");
+        }
+
+            
+
+
     }
 }

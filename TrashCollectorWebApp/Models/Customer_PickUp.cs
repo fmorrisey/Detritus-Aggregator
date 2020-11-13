@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TrashCollectorWebApp.Models
 {
-    public class Class
+    public class Customer_PickUp
     {
     }
 }
