@@ -14,6 +14,10 @@ namespace TrashCollectorWebApp.Models
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
 
+        [ForeignKey("Customer_PickUp")]
+        public string CustomerPickUp { get; set; }
+        public Customer_PickUp Customer_PickUp { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Date")]

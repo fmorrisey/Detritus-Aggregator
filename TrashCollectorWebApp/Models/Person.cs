@@ -12,7 +12,10 @@ namespace TrashCollectorWebApp.Models
     {
         [Key]
         public int ID { get; set; }
-        
+
+        [ForeignKey("Addresses")]
+        public Addresses Addresses { get; set; }
+
         [Required]
         [StringLength(50)]
         [Display(Name = "Last Name")]
@@ -33,7 +36,6 @@ namespace TrashCollectorWebApp.Models
             }
         }
 
-        [ForeignKey("Addresses")]
-        public Addresses Customer_Addresses { get; set; }
+        
     }
 }
