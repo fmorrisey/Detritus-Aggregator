@@ -31,13 +31,12 @@ namespace TrashCollectorWebApp.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<IdentityRole>()
-            .HasData(
-            new IdentityRole
-            {
-                Name = "Admin",
-                NormalizedName = "ADMIN"
-            }
-            );
+                .HasData(
+                new IdentityRole
+                {
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                });
 
             modelBuilder.Entity<Customer>()
                .HasData(
@@ -58,7 +57,7 @@ namespace TrashCollectorWebApp.Data
                    FirstName = "Detritus",
                    LastName = "Aggregator",
                   
-               });;
+               });
         }
 
             

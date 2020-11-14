@@ -9,6 +9,7 @@ using TrashCollectorWebApp.Models;
 
 namespace TrashCollectorWebApp.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
