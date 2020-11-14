@@ -10,9 +10,12 @@ namespace TrashCollectorWebApp.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+       
+        
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+          
         }
 
         //public DbSet<Person> People { get; set; }
@@ -43,6 +46,8 @@ namespace TrashCollectorWebApp.Data
                    Customer_ID = 1,
                    FirstName = "Timmy",
                    LastName = "Test",
+                   
+
                });
 
             modelBuilder.Entity<Employee>()
@@ -52,7 +57,8 @@ namespace TrashCollectorWebApp.Data
                    Employee_ID = 1,
                    FirstName = "Detritus",
                    LastName = "Aggregator",
-               });
+                  
+               });;
         }
 
             
