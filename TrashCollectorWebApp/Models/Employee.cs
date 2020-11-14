@@ -38,7 +38,7 @@ namespace TrashCollectorWebApp.Models
         }
         
         [ForeignKey("Address_ID")]
-        public Addresses Addresses { get; set; }
+        public Addresses Employee_Address { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
