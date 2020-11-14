@@ -16,6 +16,9 @@ namespace TrashCollectorWebApp.Data
         }
 
         //public DbSet<Person> People { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +26,7 @@ namespace TrashCollectorWebApp.Data
             //modelBuilder.Entity<Person>().ToTable("Person");
 
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<IdentityRole>()
             .HasData(
             new IdentityRole
@@ -31,6 +35,24 @@ namespace TrashCollectorWebApp.Data
                 NormalizedName = "ADMIN"
             }
             );
+
+            modelBuilder.Entity<Customer>()
+               .HasData(
+               new Customer
+               {
+                   Customer_ID = 1,
+                   FirstName = "Timmy",
+                   LastName = "Test",
+               });
+
+            modelBuilder.Entity<Employee>()
+               .HasData(
+               new Employee
+               {
+                   Employee_ID = 1,
+                   FirstName = "Detritus",
+                   LastName = "Aggregator",
+               });
         }
 
             

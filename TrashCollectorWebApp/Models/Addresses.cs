@@ -9,7 +9,7 @@ namespace TrashCollectorWebApp.Models
     public class Addresses
     {
         [Key]
-        public int Address_Id { get; set; }
+        public int Address_ID { get; set; }
 
         public string Line_1 { get; set; }
         public string Line_2 { get; set; }
