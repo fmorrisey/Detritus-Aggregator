@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,6 @@ using TrashCollectorWebApp.Models;
 
 namespace TrashCollectorWebApp.Controllers
 {
-    [Authorize(Roles = "Customer")]
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,7 +22,7 @@ namespace TrashCollectorWebApp.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);
+            var applicationDbContext = _context.Customers.Include(c => c.IdentityRole);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,15 +34,17 @@ namespace TrashCollectorWebApp.Controllers
                 return NotFound();
             }
 
+            Customer_Details Customer_Details = new Customer_Details();
+
             var customer = await _context.Customers
-                .Include(c => c.IdentityUser)
+                .Include(c => c.IdentityRole)
                 .FirstOrDefaultAsync(m => m.Customer_ID == id);
             if (customer == null)
             {
                 return NotFound();
             }
-
-            return View(customer);
+            Customer_Details.Customer = customer;
+            return View(Customer_Details);
         }
 
         // GET: Customers/Create
@@ -59,7 +59,7 @@ namespace TrashCollectorWebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Customer_ID,IdentityUserId,LastName,FirstName,StartDate")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Customer_ID,IdentityUserId,LastName,FirstName,Line_1,Line_2,Zip,StartDate")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace TrashCollectorWebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Customer_ID,IdentityUserId,LastName,FirstName,StartDate")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Customer_ID,IdentityUserId,LastName,FirstName,Line_1,Line_2,Zip,StartDate")] Customer customer)
         {
             if (id != customer.Customer_ID)
             {
@@ -133,7 +133,7 @@ namespace TrashCollectorWebApp.Controllers
             }
 
             var customer = await _context.Customers
-                .Include(c => c.IdentityUser)
+                .Include(c => c.IdentityRole)
                 .FirstOrDefaultAsync(m => m.Customer_ID == id);
             if (customer == null)
             {

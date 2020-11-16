@@ -26,7 +26,7 @@ namespace TrashCollectorWebApp.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            //modelBuilder.Entity<Person>().ToTable("Person");
+            
 
             base.OnModelCreating(modelBuilder);
 
@@ -38,6 +38,22 @@ namespace TrashCollectorWebApp.Data
                     NormalizedName = "ADMIN"
                 });
 
+            modelBuilder.Entity<IdentityRole>()
+               .HasData(
+               new IdentityRole
+               {
+                   Name = "Customer",
+                   NormalizedName = "CUSTOMER"
+               });
+
+            modelBuilder.Entity<IdentityRole>()
+               .HasData(
+               new IdentityRole
+               {
+                   Name = "Employee",
+                   NormalizedName = "EMPLOYEE"
+               });
+
             modelBuilder.Entity<Customer>()
                .HasData(
                new Customer
@@ -45,7 +61,15 @@ namespace TrashCollectorWebApp.Data
                    Customer_ID = 1,
                    FirstName = "Timmy",
                    LastName = "Test",
-                   
+
+               });
+            modelBuilder.Entity<Customer_Accounts>()
+               .HasData(
+               new Customer_Accounts
+               {
+                   Account_ID = 1,
+                   Customer_ID = 1,
+                   Balance = 0,
 
                });
 
@@ -56,9 +80,10 @@ namespace TrashCollectorWebApp.Data
                    Employee_ID = 1,
                    FirstName = "Detritus",
                    LastName = "Aggregator",
-                  
                });
         }
+
+        public DbSet<TrashCollectorWebApp.Models.Addresses> Addresses { get; set; }
 
             
 

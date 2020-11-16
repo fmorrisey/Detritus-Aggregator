@@ -69,6 +69,7 @@ namespace TrashCollectorWebApp.Areas.Identity.Pages.Account
 
             [Required]  //IdentityRole
             public string Role { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)

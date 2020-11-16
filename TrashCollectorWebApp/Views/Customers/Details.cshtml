@@ -1,43 +1,54 @@
-﻿@model TrashCollectorWebApp.Models.Customer
+﻿@model TrashCollectorWebApp.Models.Customer_Details
 
 @{
     ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Details</h1>
 
 <div>
-    <h4>Customer</h4>
+    <h4>Player</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdentityUser)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer.FullName)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdentityUser.Id)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.FullName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer.Line_1)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.Line_1)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer.Line_2)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.Line_2)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer.City), @Html.DisplayNameFor(model => model.Customer.State)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
+        <dd class="col-sm-10">
+            @Html.DisplayNameFor(model => model.Customer.City), @Html.DisplayNameFor(model => model.Customer.State)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer.Zip)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.Zip)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayFor(model => model.Customer_Accounts.Balance)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer_Accounts.Balance)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Customer_ID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Customer.Customer_ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

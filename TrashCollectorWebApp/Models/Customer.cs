@@ -15,7 +15,8 @@ namespace TrashCollectorWebApp.Models
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
-        public IdentityUser IdentityUser { get; set; }
+
+        public IdentityRole IdentityRole { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -37,8 +38,29 @@ namespace TrashCollectorWebApp.Models
             }
         }
 
-        [ForeignKey("Address_ID")]
-        public Addresses Customer_Address { get; set; }
+        [Display(Name = "Street")]
+        public string Line_1 { get; set; }
+
+        [Display(Name = "Apartment")]
+        public string Line_2 { get; set; }
+
+        [Display(Name = "City")]
+        public string City { get; set; }
+
+        [Display(Name = "State")]
+        public string State { get; set; }
+
+        [Display(Name = "Zip Code")]
+        public int Zip { get; set; }
+
+        [Display(Name = "Customer Address")]
+        public string Customer_Address
+        {
+            get
+            {
+                return Line_1 + " " + Line_2 + " " + City + " " + State + " " + Zip;
+            }
+        }
 
         [ForeignKey("PickUp_ID")]
         public Customer_PickUp Customer_PickUp { get; set; }
@@ -47,7 +69,6 @@ namespace TrashCollectorWebApp.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
-                
 
     }
 }

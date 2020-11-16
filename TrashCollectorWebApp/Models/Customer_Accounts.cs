@@ -13,7 +13,12 @@ namespace TrashCollectorWebApp.Models
         public int Account_ID { get; set; }
 
         [ForeignKey("Id")]
-        public string Customer_ID { get; set; }
-        public Customer customer { get; set; }
+        public int Customer_ID { get; set; }
+        
+        public decimal Balance { get; set; }
+
+        
+
+
     }
 }
