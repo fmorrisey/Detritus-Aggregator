@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TrashCollectorWebApp.Migrations
 {
-    public partial class inital : Migration
+    public partial class Thishastooworkhelpmegod : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,6 +60,20 @@ namespace TrashCollectorWebApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customer_Accounts",
+                columns: table => new
+                {
+                    Account_ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Customer_ID = table.Column<string>(nullable: true),
+                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customer_Accounts", x => x.Account_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -216,9 +230,14 @@ namespace TrashCollectorWebApp.Migrations
                     Customer_ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdentityUserId = table.Column<string>(nullable: true),
+                    IdentityRoleId = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
-                    Address_ID = table.Column<int>(nullable: true),
+                    Line_1 = table.Column<string>(nullable: true),
+                    Line_2 = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    Zip = table.Column<int>(nullable: false),
                     PickUp_ID = table.Column<int>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false)
                 },
@@ -226,15 +245,9 @@ namespace TrashCollectorWebApp.Migrations
                 {
                     table.PrimaryKey("PK_Customers", x => x.Customer_ID);
                     table.ForeignKey(
-                        name: "FK_Customers_Addresses_Address_ID",
-                        column: x => x.Address_ID,
-                        principalTable: "Addresses",
-                        principalColumn: "Address_ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Customers_AspNetUsers_IdentityUserId",
-                        column: x => x.IdentityUserId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_Customers_AspNetRoles_IdentityRoleId",
+                        column: x => x.IdentityRoleId,
+                        principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -250,15 +263,20 @@ namespace TrashCollectorWebApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "6d0ea04d-0381-4620-889f-e45aff2b35c8", "2c7100da-9771-4db6-b59d-16972f4e843f", "Admin", "ADMIN" },
-                    { "1e976292-b835-4b2c-901a-a46d0f269a7a", "93e53ffc-e536-4616-8bba-383e88b43fad", "Customer", "CUSTOMER" },
-                    { "b5849624-397d-496e-953c-2bde9b6369f6", "80e1f063-2a91-4311-853f-22347230bb45", "Employee", "EMPLOYEE" }
+                    { "820d968b-a733-4ac1-93e8-bfb60a2bf9be", "2b69758c-fc1b-4508-836f-158841ac29cc", "Admin", "ADMIN" },
+                    { "d8ea263a-1f1e-4c5c-ad70-7a0ba7079a5d", "9a9e238d-31ea-448e-a9c4-3decfadc8c36", "Customer", "CUSTOMER" },
+                    { "5edd94f4-e901-405f-acda-cc72e32dd289", "4087dd68-ce22-45df-b25c-594b3010c77e", "Employee", "EMPLOYEE" }
                 });
 
             migrationBuilder.InsertData(
+                table: "Customer_Accounts",
+                columns: new[] { "Account_ID", "Balance", "Customer_ID" },
+                values: new object[] { 1, 0m, null });
+
+            migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "Customer_ID", "Address_ID", "FirstName", "IdentityUserId", "LastName", "PickUp_ID", "StartDate" },
-                values: new object[] { 1, null, "Timmy", null, "Test", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                columns: new[] { "Customer_ID", "City", "FirstName", "IdentityRoleId", "IdentityUserId", "LastName", "Line_1", "Line_2", "PickUp_ID", "StartDate", "State", "Zip" },
+                values: new object[] { 1, null, "Timmy", null, null, "Test", null, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, 0 });
 
             migrationBuilder.InsertData(
                 table: "Employees",
@@ -305,14 +323,9 @@ namespace TrashCollectorWebApp.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_Address_ID",
+                name: "IX_Customers_IdentityRoleId",
                 table: "Customers",
-                column: "Address_ID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Customers_IdentityUserId",
-                table: "Customers",
-                column: "IdentityUserId");
+                column: "IdentityRoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_PickUp_ID",
@@ -346,6 +359,9 @@ namespace TrashCollectorWebApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Customer_Accounts");
 
             migrationBuilder.DropTable(
                 name: "Customers");

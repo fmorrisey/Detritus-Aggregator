@@ -68,7 +68,6 @@ namespace TrashCollectorWebApp.Data
                new Customer_Accounts
                {
                    Account_ID = 1,
-                   Customer_ID = 1,
                    Balance = 0,
 
                });

@@ -10,8 +10,8 @@ using TrashCollectorWebApp.Data;
 namespace TrashCollectorWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201116192410_inital")]
-    partial class inital
+    [Migration("20201117000536_This has too work help me god")]
+    partial class Thishastooworkhelpmegod
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,22 +50,22 @@ namespace TrashCollectorWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6d0ea04d-0381-4620-889f-e45aff2b35c8",
-                            ConcurrencyStamp = "2c7100da-9771-4db6-b59d-16972f4e843f",
+                            Id = "820d968b-a733-4ac1-93e8-bfb60a2bf9be",
+                            ConcurrencyStamp = "2b69758c-fc1b-4508-836f-158841ac29cc",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "1e976292-b835-4b2c-901a-a46d0f269a7a",
-                            ConcurrencyStamp = "93e53ffc-e536-4616-8bba-383e88b43fad",
+                            Id = "d8ea263a-1f1e-4c5c-ad70-7a0ba7079a5d",
+                            ConcurrencyStamp = "9a9e238d-31ea-448e-a9c4-3decfadc8c36",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "b5849624-397d-496e-953c-2bde9b6369f6",
-                            ConcurrencyStamp = "80e1f063-2a91-4311-853f-22347230bb45",
+                            Id = "5edd94f4-e901-405f-acda-cc72e32dd289",
+                            ConcurrencyStamp = "4087dd68-ce22-45df-b25c-594b3010c77e",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -271,8 +271,8 @@ namespace TrashCollectorWebApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Address_ID")
-                        .HasColumnType("int");
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -280,13 +280,22 @@ namespace TrashCollectorWebApp.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("IdentityUserId")
+                    b.Property<string>("IdentityRoleId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<string>("Line_1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Line_2")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PickUp_ID")
                         .HasColumnType("int");
@@ -294,11 +303,15 @@ namespace TrashCollectorWebApp.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Zip")
+                        .HasColumnType("int");
+
                     b.HasKey("Customer_ID");
 
-                    b.HasIndex("Address_ID");
-
-                    b.HasIndex("IdentityUserId");
+                    b.HasIndex("IdentityRoleId");
 
                     b.HasIndex("PickUp_ID");
 
@@ -310,7 +323,33 @@ namespace TrashCollectorWebApp.Migrations
                             Customer_ID = 1,
                             FirstName = "Timmy",
                             LastName = "Test",
-                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Zip = 0
+                        });
+                });
+
+            modelBuilder.Entity("TrashCollectorWebApp.Models.Customer_Accounts", b =>
+                {
+                    b.Property<int>("Account_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Customer_ID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Account_ID");
+
+                    b.ToTable("Customer_Accounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Account_ID = 1,
+                            Balance = 0m
                         });
                 });
 
@@ -424,13 +463,9 @@ namespace TrashCollectorWebApp.Migrations
 
             modelBuilder.Entity("TrashCollectorWebApp.Models.Customer", b =>
                 {
-                    b.HasOne("TrashCollectorWebApp.Models.Addresses", "Customer_Address")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "IdentityRole")
                         .WithMany()
-                        .HasForeignKey("Address_ID");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
-                        .WithMany()
-                        .HasForeignKey("IdentityUserId");
+                        .HasForeignKey("IdentityRoleId");
 
                     b.HasOne("TrashCollectorWebApp.Models.Customer_PickUp", "Customer_PickUp")
                         .WithMany()

@@ -12,9 +12,11 @@ namespace TrashCollectorWebApp.Models
         [Key]
         public int Account_ID { get; set; }
 
-        [ForeignKey("Id")]
-        public int Customer_ID { get; set; }
-        
+        [ForeignKey("Customer_ID")]
+        public string Customer_ID { get; set; }
+
+        [Display(Name = "Balance Due")]
+        [Column(TypeName = "decimal(18,2)")] //https://stackoverflow.com/a/56494920
         public decimal Balance { get; set; }
 
         

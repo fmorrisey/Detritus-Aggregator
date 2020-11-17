@@ -48,22 +48,22 @@ namespace TrashCollectorWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f553eac5-e0c6-4900-8c09-0e4dd08ce7f4",
-                            ConcurrencyStamp = "74968000-8699-4f04-956e-e93c0e1b88de",
+                            Id = "820d968b-a733-4ac1-93e8-bfb60a2bf9be",
+                            ConcurrencyStamp = "2b69758c-fc1b-4508-836f-158841ac29cc",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "595dfa03-4c42-42cc-8fd6-5b8b3999bc05",
-                            ConcurrencyStamp = "78103ee3-0345-4dce-b972-51bf71fa9758",
+                            Id = "d8ea263a-1f1e-4c5c-ad70-7a0ba7079a5d",
+                            ConcurrencyStamp = "9a9e238d-31ea-448e-a9c4-3decfadc8c36",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "e16b8c84-7df9-41c7-aeba-672d75906bba",
-                            ConcurrencyStamp = "b723be29-445f-4098-b5fe-1a7477324be6",
+                            Id = "5edd94f4-e901-405f-acda-cc72e32dd289",
+                            ConcurrencyStamp = "4087dd68-ce22-45df-b25c-594b3010c77e",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -336,8 +336,8 @@ namespace TrashCollectorWebApp.Migrations
                     b.Property<decimal>("Balance")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Customer_ID")
-                        .HasColumnType("int");
+                    b.Property<string>("Customer_ID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Account_ID");
 
@@ -347,8 +347,7 @@ namespace TrashCollectorWebApp.Migrations
                         new
                         {
                             Account_ID = 1,
-                            Balance = 0m,
-                            Customer_ID = 1
+                            Balance = 0m
                         });
                 });
 

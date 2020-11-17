@@ -70,5 +70,7 @@ namespace TrashCollectorWebApp.Models
         [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
+        
+
     }
 }

@@ -29,22 +29,18 @@ namespace TrashCollectorWebApp.Controllers
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Customer_Details Customer_Details = new Customer_Details();
-
+            
+            Customer_Details customer_Details = new Customer_Details();
+            
             var customer = await _context.Customers
                 .Include(c => c.IdentityRole)
                 .FirstOrDefaultAsync(m => m.Customer_ID == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-            Customer_Details.Customer = customer;
-            return View(Customer_Details);
+
+            customer_Details.Customer = customer;
+            customer_Details.Customer_Accounts = new Customer_Accounts();  
+            customer_Details.Customer_PickUp = new Customer_PickUp();  
+                        
+            return View(customer_Details);
         }
 
         // GET: Customers/Create
