@@ -22,7 +22,8 @@ namespace TrashCollectorWebApp.Controllers
         // GET: CustomerController
         public ActionResult Index()
         {
-            return View();
+            var returnList = _dbContext.Customers.ToList();
+            return View(returnList);
         }
 
         // GET: CustomerController/Details/5
