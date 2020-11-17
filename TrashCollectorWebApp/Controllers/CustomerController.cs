@@ -30,7 +30,7 @@ namespace TrashCollectorWebApp.Controllers
         public ActionResult Details(int id)
         {
             var details = _dbContext.Customers.Find(id);
-            return View();
+            return View(details);
         }
 
         // GET: CustomerController/Create

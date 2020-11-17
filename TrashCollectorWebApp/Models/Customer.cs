@@ -15,7 +15,7 @@ namespace TrashCollectorWebApp.Models
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
-        public IdentityRole IdentityRole { get; set; }
+        public IdentityUser IdentityUser { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
