@@ -34,9 +34,11 @@ namespace TrashCollectorWebApp.Controllers
         }
 
         // GET: CustomerController/Create
-        public ActionResult CreateProfile()
+        public ActionResult CreateProfile(int id)
         {
-            return View();
+            // Brings the current Customer profile
+            var details = _dbContext.Customers.Find(id);
+            return View(details);
         }
 
         // POST: CustomerController/Create
@@ -47,11 +49,14 @@ namespace TrashCollectorWebApp.Controllers
             try
             {
                 _dbContext.Customers.Add(customer);
-                return RedirectToAction(nameof(Index));
+                _dbContext.SaveChanges();
+
+                return RedirectToAction(nameof(Index /*change me later*/));
             }
             catch
             {
-                return View();
+                var returnList = _dbContext.Customers.ToList();
+                return View(returnList);
             }
         }
 

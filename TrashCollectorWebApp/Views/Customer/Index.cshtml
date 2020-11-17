@@ -8,8 +8,8 @@
 <h1>View</h1>
 
 <p>
-    <a asp-action="Create">Create New</a> |
-    <a asp-action="PickUp">Schedule Pick Up</a>
+    <a asp-action="CreateProfile">Create Profile</a> |
+    <a asp-action="ScheudlePickUp"><strike>Schedule Pick Up</strike></a>
 </p>
 <table class="table">
     <thead>
@@ -19,9 +19,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Line_1)
-            </th>
-            <th>
-                
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Zip)
@@ -40,16 +37,11 @@
                 @Html.DisplayFor(modelItem => item.Line_1)
             </td>
             <td>
-                
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Zip)
             </td>
-            
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Customer_ID">Update address</a>
-                
-               </td>
+                <a asp-action="Edit" asp-route-id="@item.Customer_ID"><strike>Update address</strike></a>
+            </td>
         </tr>
 }
     </tbody>
