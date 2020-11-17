@@ -84,6 +84,10 @@ namespace TrashCollectorWebApp.Data
 
         public DbSet<TrashCollectorWebApp.Models.Addresses> Addresses { get; set; }
 
+        public DbSet<TrashCollectorWebApp.Models.Customer_Accounts> Customer_Accounts { get; set; }
+
+        public DbSet<TrashCollectorWebApp.Models.Customer_PickUp> Customer_PickUp { get; set; }
+
             
 
 
