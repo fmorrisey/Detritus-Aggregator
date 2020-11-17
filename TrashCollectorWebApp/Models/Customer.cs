@@ -50,6 +50,7 @@ namespace TrashCollectorWebApp.Models
         [Display(Name = "State")]
         public string State { get; set; }
 
+        [DataType(DataType.PostalCode)]
         [Display(Name = "Zip Code")]
         public int Zip { get; set; }
 

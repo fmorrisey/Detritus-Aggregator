@@ -20,7 +20,7 @@
             <dd class="col-sm-8">
                 @Html.DisplayFor(model => model.FullName)
             </dd>
-            
+
             <div class="form-group">
                 <label asp-for="Line_1" class="control-label"></label>
                 <input asp-for="Line_1" class="form-control" />
@@ -46,6 +46,7 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
