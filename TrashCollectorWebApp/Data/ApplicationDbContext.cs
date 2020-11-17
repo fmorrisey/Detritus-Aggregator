@@ -17,10 +17,8 @@ namespace TrashCollectorWebApp.Data
         {
           
         }
-
-        //public DbSet<Person> People { get; set; }
+                
         public DbSet<Customer> Customers { get; set; }
-
         public DbSet<Employee> Employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -63,15 +61,7 @@ namespace TrashCollectorWebApp.Data
                    LastName = "Test",
 
                });
-            modelBuilder.Entity<Customer_Accounts>()
-               .HasData(
-               new Customer_Accounts
-               {
-                   Account_ID = 1,
-                   Balance = 0,
-
-               });
-
+            
             modelBuilder.Entity<Employee>()
                .HasData(
                new Employee
@@ -82,11 +72,8 @@ namespace TrashCollectorWebApp.Data
                });
         }
 
-        public DbSet<TrashCollectorWebApp.Models.Addresses> Addresses { get; set; }
+       
 
-        public DbSet<TrashCollectorWebApp.Models.Customer_Accounts> Customer_Accounts { get; set; }
-
-        public DbSet<TrashCollectorWebApp.Models.Customer_PickUp> Customer_PickUp { get; set; }
 
             
 

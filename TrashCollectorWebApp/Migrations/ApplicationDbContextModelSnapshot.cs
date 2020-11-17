@@ -48,22 +48,22 @@ namespace TrashCollectorWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b9b4d52f-f442-46d8-a156-47fda96bee71",
-                            ConcurrencyStamp = "1cb8d1e6-2fbc-4756-95d5-7d3b8815d156",
+                            Id = "806b519c-c552-4ae7-9c01-39faf087169a",
+                            ConcurrencyStamp = "d05ad76c-497c-4bf3-9824-7a0658cd69c4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "93377231-c14a-4de3-9f0d-8ce08d3925eb",
-                            ConcurrencyStamp = "cc17c3e4-5c8e-4b76-924f-50775d2dbf4e",
+                            Id = "3d3beedc-c4d5-4ff6-a1fb-2211e6478a53",
+                            ConcurrencyStamp = "b5c298f0-ef80-4387-bf91-09929931be00",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "4b093f40-f2f7-4ae4-9c8e-4264ec127a62",
-                            ConcurrencyStamp = "fd3931f8-235b-4f94-af9c-6d7ce2ccd40b",
+                            Id = "061b0f37-2d8b-4653-b16e-d5a05b85bceb",
+                            ConcurrencyStamp = "4b81a256-ed2c-4c49-a751-5b92c0a2987e",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -269,8 +269,20 @@ namespace TrashCollectorWebApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Customer_PickUp_Reccuring")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Customer_PickUp_Temp_End")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Customer_PickUp_Temp_Start")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -292,15 +304,6 @@ namespace TrashCollectorWebApp.Migrations
                     b.Property<string>("Line_1")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Line_2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PickUp_ID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
@@ -311,62 +314,17 @@ namespace TrashCollectorWebApp.Migrations
 
                     b.HasIndex("IdentityRoleId");
 
-                    b.HasIndex("PickUp_ID");
-
                     b.ToTable("Customers");
 
                     b.HasData(
                         new
                         {
                             Customer_ID = 1,
+                            Balance = 0m,
                             FirstName = "Timmy",
                             LastName = "Test",
-                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Zip = 0
                         });
-                });
-
-            modelBuilder.Entity("TrashCollectorWebApp.Models.Customer_Accounts", b =>
-                {
-                    b.Property<int>("Account_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Customer_ID")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Account_ID");
-
-                    b.ToTable("Customer_Accounts");
-
-                    b.HasData(
-                        new
-                        {
-                            Account_ID = 1,
-                            Balance = 0m
-                        });
-                });
-
-            modelBuilder.Entity("TrashCollectorWebApp.Models.Customer_PickUp", b =>
-                {
-                    b.Property<int>("PickUp_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("OneTimePickUp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ReccuringPickUp")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("PickUp_ID");
-
-                    b.ToTable("Customer_PickUp");
                 });
 
             modelBuilder.Entity("TrashCollectorWebApp.Models.Employee", b =>
@@ -470,10 +428,6 @@ namespace TrashCollectorWebApp.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "IdentityRole")
                         .WithMany()
                         .HasForeignKey("IdentityRoleId");
-
-                    b.HasOne("TrashCollectorWebApp.Models.Customer_PickUp", "Customer_PickUp")
-                        .WithMany()
-                        .HasForeignKey("PickUp_ID");
                 });
 
             modelBuilder.Entity("TrashCollectorWebApp.Models.Employee", b =>
