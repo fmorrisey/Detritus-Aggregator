@@ -69,6 +69,7 @@ namespace TrashCollectorWebApp.Data
                    Employee_ID = 1,
                    FirstName = "Detritus",
                    LastName = "Aggregator",
+                   Title = "Sanitation Extraordinare"
                });
         }
 

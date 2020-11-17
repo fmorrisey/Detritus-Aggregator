@@ -33,7 +33,7 @@ namespace TrashCollectorWebApp.Controllers
         }
 
         // GET: CustomerController/Create
-        public ActionResult Create()
+        public ActionResult CreateProfile()
         {
             return View();
         }
@@ -41,7 +41,7 @@ namespace TrashCollectorWebApp.Controllers
         // POST: CustomerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Customer customer)
+        public ActionResult CreateProfile(Customer customer)
         {
             try
             {

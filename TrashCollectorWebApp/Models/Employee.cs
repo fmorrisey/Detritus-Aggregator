@@ -15,12 +15,7 @@ namespace TrashCollectorWebApp.Models
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
-        public IdentityUser IdentityUser { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+        public IdentityRole IdentityRole { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
@@ -28,21 +23,22 @@ namespace TrashCollectorWebApp.Models
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+
         [Display(Name = "Full Name")]
         public string FullName
         {
             get
             {
-                return LastName + ", " + FirstName;
+                return FirstName + ", " + LastName;
             }
         }
         
-        [ForeignKey("Address_ID")]
-        public Addresses Employee_Address { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Hire Date")]
-        public DateTime HireDate { get; set; }
+        [Display(Name = "Title")]
+        public string Title { get; set; }
     }
 }

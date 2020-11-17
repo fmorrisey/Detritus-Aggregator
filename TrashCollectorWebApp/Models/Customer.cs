@@ -15,7 +15,6 @@ namespace TrashCollectorWebApp.Models
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
-
         public IdentityRole IdentityRole { get; set; }
 
         [Required]
@@ -35,7 +34,7 @@ namespace TrashCollectorWebApp.Models
         {
             get
             {
-                return LastName + ", " + FirstName;
+                return FirstName + ", " + LastName;
             }
         }
 
@@ -52,7 +51,7 @@ namespace TrashCollectorWebApp.Models
         [Display(Name = "Zip Code")]
         public int Zip { get; set; }
         
-        //Becareful
+        //Be Careful
         public string Customer_PickUp_Reccuring { get; set; }
         
         public DateTime? Customer_PickUp_Temp_Start { get; set; }

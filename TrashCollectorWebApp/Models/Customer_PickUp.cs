@@ -21,7 +21,6 @@ namespace TrashCollectorWebApp.Models
         [Display(Name = "OneTimePickUp")]
         public DateTime OneTimePickUp { get; set; }
 
-
     }
 
 }
