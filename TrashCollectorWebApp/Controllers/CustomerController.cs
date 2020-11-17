@@ -54,6 +54,29 @@ namespace TrashCollectorWebApp.Controllers
             }
         }
 
+
+        // GET: CustomerController/Create
+        public ActionResult CreatePickUp()
+        {
+            return View();
+        }
+
+        // POST: CustomerController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreatePickUp(Customer customer)
+        {
+            try
+            {
+                _dbContext.Customers.Add(customer);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
         // GET: CustomerController/Edit/5
         public ActionResult Edit(int id)
         {
