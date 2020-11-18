@@ -15,11 +15,17 @@ namespace TrashCollectorWebApp.Controllers
     {
 
         private ApplicationDbContext _dbContext;
-        private string Today = "W";
+        private string Today = "M";
 
         public EmployeeController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public ActionResult Index()
+        {
+            var returnList = _dbContext.Employees.ToList();
+            return View(returnList);
         }
 
 
@@ -34,9 +40,15 @@ namespace TrashCollectorWebApp.Controllers
         // GET: EmployeeController
         public ActionResult PickUpToday()
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _dbContext.Employees.Where(c => c.IdentityUserId ==
+            userId).SingleOrDefault();
 
-            var viewModel = new CustomerIndex();
-            viewModel.Customers = _dbContext.Customers.Where(c => c.Customer_PickUp_Reccuring == Today).ToList();
+            var viewModel = new List<Customer>();
+            
+            viewModel = _dbContext.Customers.Where(c => c.Customer_PickUp_Reccuring == Today)
+                .OrderByDescending(c => c.Zip == employee.Zip)
+                .ToList();
 
             return View(viewModel);
         }
@@ -51,19 +63,26 @@ namespace TrashCollectorWebApp.Controllers
         }
 
         // GET: EmployeeController/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View();
+            var details = _dbContext.Employees.Find(id);
+            return View(details);
         }
 
         // POST: EmployeeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Employee employee)
         {
             try
             {
-                return RedirectToAction(nameof(CustomerList));
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                employee.IdentityUserId = userId;
+
+                _dbContext.Employees.Add(employee);
+                _dbContext.SaveChanges();
+
+                return RedirectToAction(nameof(Index));
             }
             catch
             {

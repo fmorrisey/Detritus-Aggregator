@@ -74,8 +74,7 @@ namespace TrashCollectorWebApp.Controllers
             }
             catch
             {
-                var returnList = _dbContext.Customers.ToList();
-                return View(returnList);
+                return View();
             }
         }
         #endregion
