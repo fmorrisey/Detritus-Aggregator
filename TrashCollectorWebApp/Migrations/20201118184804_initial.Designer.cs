@@ -10,8 +10,8 @@ using TrashCollectorWebApp.Data;
 namespace TrashCollectorWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201118182051_added ICollections retry again")]
-    partial class addedICollectionsretryagain
+    [Migration("20201118184804_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,22 +50,22 @@ namespace TrashCollectorWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3479ccbd-4cb4-40c6-a431-1272b8bcf8c2",
-                            ConcurrencyStamp = "aaf8f2aa-0049-44db-a251-fa7047757d2e",
+                            Id = "a61e75e6-fd59-430e-b2e9-93ccaf3f4b90",
+                            ConcurrencyStamp = "76660801-6a8c-4244-9305-23fb0d062f08",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8e17525f-0e9a-4cda-b865-e3b00faab931",
-                            ConcurrencyStamp = "24977ac6-b3f0-4a88-ad2c-d892e9f3e7de",
+                            Id = "5030c7b5-fdb9-4eec-af08-8196c79fa13a",
+                            ConcurrencyStamp = "43ca060c-e024-4691-8cfc-da2a196e402b",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "ee1dbd28-3a22-44f2-a983-66bc9becf007",
-                            ConcurrencyStamp = "a4287e01-83e3-4a89-b16b-3ae8dbeff775",
+                            Id = "d5e96afa-fd2b-4bb8-9ffe-deddd521af5e",
+                            ConcurrencyStamp = "863d28b5-48d8-4530-a992-6e05a4dac7b6",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
