@@ -53,6 +53,9 @@ namespace TrashCollectorWebApp.Data
                    NormalizedName = "EMPLOYEE"
                });
 
+            
+
+
             modelBuilder.Entity<Customer>()
                .HasData(
                new Customer
@@ -62,7 +65,17 @@ namespace TrashCollectorWebApp.Data
                    LastName = "Test",
 
                });
-            
+
+            modelBuilder.Entity<PickUp>()
+                .HasData(
+                new PickUp
+                {
+                    PickUP_ID = 1,
+                    Customer_ID = 1,
+                    Customer_PickUp_Reccuring = "M",
+                    IsEnrolled = true,
+                }); 
+
             modelBuilder.Entity<Employee>()
                .HasData(
                new Employee
