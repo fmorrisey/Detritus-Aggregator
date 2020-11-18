@@ -15,7 +15,7 @@ namespace TrashCollectorWebApp.Models
         
         [ForeignKey("Customer_ID")]
         public int Customer_ID { get; set; }
-        public Customer customer { get; set; }
+        public virtual Customer customer { get; set; }
 
         [Display(Name = "Weekly Pick Up Day (Mo, Tu, We, Th, Fr)")]
         public DayOfWeek Customer_PickUp_Reccuring { get; set; }
@@ -32,6 +32,9 @@ namespace TrashCollectorWebApp.Models
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Customer_PickUp_Temp_End { get; set; }
         public bool ConfirmPickUp { get; set; }
+
+        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
 
 
     }

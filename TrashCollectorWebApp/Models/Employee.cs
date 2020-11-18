@@ -43,5 +43,7 @@ namespace TrashCollectorWebApp.Models
         
         [Display(Name = "Title")]
         public string Title { get; set; }
+
+
     }
 }

@@ -27,7 +27,7 @@ namespace TrashCollectorWebApp.Models
         [StringLength(50)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-                
+
 
         [Display(Name = "Full Name")]
         public string FullName
@@ -40,7 +40,7 @@ namespace TrashCollectorWebApp.Models
 
         [Display(Name = "Street")]
         public string Line_1 { get; set; }
-                
+
         [Display(Name = "City")]
         public string City { get; set; }
 
@@ -55,9 +55,14 @@ namespace TrashCollectorWebApp.Models
         [Display(Name = "Weekly Pick Up Day (M-F)")]
         public string Customer_PickUp_Reccuring { get; set; }
 
+        public bool IsEnrolled { get; set; }
+        
+
         [Display(Name = "One Time Pick Up")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Customer_PickUp_OneTime { get; set; }
+
+        public bool OneTimePickUp { get; set; }
 
         [Display(Name = "Suspend Pick Up Start Date")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
@@ -71,6 +76,13 @@ namespace TrashCollectorWebApp.Models
         [DataType(DataType.Currency)]
         [Column(TypeName = "money")]
         public decimal Balance { get; set; }
+
+        public bool ConfirmPickUp { get; set; }
+
+        public virtual ICollection<PickUp> PickUps { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
+
+
 
 
 

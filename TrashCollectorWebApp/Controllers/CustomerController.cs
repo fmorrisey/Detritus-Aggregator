@@ -15,6 +15,8 @@ namespace TrashCollectorWebApp.Controllers
     {
 
         private ApplicationDbContext _dbContext;
+        private decimal oneTimeCost = 10;
+        private decimal reccuringCost = 3;
 
         public CustomerController(ApplicationDbContext dbContext)
         {
@@ -30,6 +32,13 @@ namespace TrashCollectorWebApp.Controllers
 
         // GET: CustomerController/Details/5
         public ActionResult Details(int id)
+        {
+            var details = _dbContext.Customers.Find(id);
+            return View(details);
+        }
+
+        // GET: CustomerController/Details/5
+        public ActionResult AccountView(int id)
         {
             var details = _dbContext.Customers.Find(id);
             return View(details);
@@ -55,6 +64,8 @@ namespace TrashCollectorWebApp.Controllers
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
                 
+
+
                 _dbContext.Customers.Add(customer);
                 
                 _dbContext.SaveChanges();
@@ -168,7 +179,6 @@ namespace TrashCollectorWebApp.Controllers
         }
         #endregion
 
-
         // One Time
         #region
         // GET: CustomerController/Suspend
@@ -185,6 +195,7 @@ namespace TrashCollectorWebApp.Controllers
         {
             try
             {
+                customer = isOneTime(customer);
                 _dbContext.Customers.Update(customer);
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -223,7 +234,29 @@ namespace TrashCollectorWebApp.Controllers
         }
         #endregion
 
+        
 
+        private Customer chargeCustomer(Customer customer, decimal charge)
+        {
+            customer.Balance = charge;
+            return customer;
+        }
+
+        private Customer isOneTime(Customer customer)
+        {
+            if (customer.Customer_PickUp_OneTime != default)
+            {
+                customer.OneTimePickUp = true;
+                customer = chargeCustomer(customer, oneTimeCost);
+                return customer;
+            }
+            else
+            {
+                customer.OneTimePickUp = false;
+                return customer;
+            }
+            
+        }
 
         /*
         // GET: CustomerController/Delete/5

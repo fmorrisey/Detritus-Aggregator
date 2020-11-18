@@ -21,9 +21,11 @@
                 @Html.DisplayNameFor(model => model.Line_1)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Zip)
+                @Html.DisplayNameFor(model => model.Customer_PickUp_Reccuring)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Balance)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -38,6 +40,9 @@
             </td>
             <td>
                 <a asp-action="ChangePickUp" asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.Customer_PickUp_Reccuring)</a>
+            </td>
+            <td>
+                <a asp-action="AccountView" asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.Balance)</a>
             </td>
             <td>
                 <a asp-action="Suspend" asp-route-id="@item.Customer_ID">Suspend</a> |
