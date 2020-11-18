@@ -4,21 +4,42 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using TrashCollectorWebApp.Data;
+using TrashCollectorWebApp.Models;
 
 namespace TrashCollectorWebApp.Controllers
 {
     public class EmployeeController : Controller
     {
-        // GET: EmployeeController
-        public ActionResult Index()
+
+        private ApplicationDbContext _dbContext;
+
+        public EmployeeController(ApplicationDbContext dbContext)
         {
-            return View();
+            _dbContext = dbContext;
+        }
+
+
+        // GET: EmployeeController
+        public ActionResult CustomerList()
+        {
+            var returnList = _dbContext.Customers.ToList();
+            return View(returnList);
+        }
+
+        // GET: EmployeeController
+        public ActionResult PickUpToday()
+        {
+            var returnList = _dbContext.Customers.ToList();
+            return View(returnList);
         }
 
         // GET: EmployeeController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult CusomterDetails(int id)
         {
-            return View();
+            var details = _dbContext.Customers.Find(id);
+            return View(details);
         }
 
         // GET: EmployeeController/Create
@@ -34,7 +55,7 @@ namespace TrashCollectorWebApp.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(CustomerList));
             }
             catch
             {

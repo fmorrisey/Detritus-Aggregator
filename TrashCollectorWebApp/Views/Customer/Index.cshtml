@@ -34,18 +34,16 @@
                 <a asp-action="Details" asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.FullName)</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Line_1)
+                <a asp-action="Edit" asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.Line_1) / @Html.DisplayFor(modelItem => item.Zip)</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Zip)
+                <a asp-action="ChangePickUp" asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.Customer_PickUp_Reccuring)</a>
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Customer_ID">Update address</a> |
-                <a asp-action="ChangePickUpTable" asp-route-id="@item.Customer_ID">Change Pick Up</a> |
-                <a asp-action="Suspend" asp-route-id="@item.Customer_ID">Suspend Pick Up</a> |
+                <a asp-action="Suspend" asp-route-id="@item.Customer_ID">Suspend</a> |
+                <a asp-action="OneTime" asp-route-id="@item.Customer_ID">One-Time</a>
             </td>
             <td>
-                
             </td>
 
         </tr>

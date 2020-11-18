@@ -169,6 +169,33 @@ namespace TrashCollectorWebApp.Controllers
         #endregion
 
 
+        // One Time
+        #region
+        // GET: CustomerController/Suspend
+        public ActionResult OneTime(int id)
+        {
+            var editCustomer = _dbContext.Customers.Find(id);
+            return View(editCustomer);
+        }
+
+        // POST: CustomerController/Suspend
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult OneTime(int id, Customer customer)
+        {
+            try
+            {
+                _dbContext.Customers.Update(customer);
+                _dbContext.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        #endregion
+
         // Edit
         #region
         // GET: CustomerController/Edit/5

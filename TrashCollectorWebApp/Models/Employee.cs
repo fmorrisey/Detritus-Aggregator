@@ -28,13 +28,16 @@ namespace TrashCollectorWebApp.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [DataType(DataType.PostalCode)]
+        [Display(Name = "Zip Code")]
+        public int Zip { get; set; }
 
         [Display(Name = "Full Name")]
         public string FullName
         {
             get
             {
-                return FirstName + ", " + LastName;
+                return FirstName + " " + LastName;
             }
         }
         
