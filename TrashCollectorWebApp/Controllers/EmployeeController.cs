@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using TrashCollectorWebApp.Data;
 using TrashCollectorWebApp.Models;
+using TrashCollectorWebApp.Models.viewModels;
 
 namespace TrashCollectorWebApp.Controllers
 {
@@ -14,6 +15,7 @@ namespace TrashCollectorWebApp.Controllers
     {
 
         private ApplicationDbContext _dbContext;
+        private string Today = "W";
 
         public EmployeeController(ApplicationDbContext dbContext)
         {
@@ -26,14 +28,20 @@ namespace TrashCollectorWebApp.Controllers
         {
             var returnList = _dbContext.Customers.ToList();
             return View(returnList);
+
         }
 
         // GET: EmployeeController
         public ActionResult PickUpToday()
         {
-            var returnList = _dbContext.Customers.ToList();
-            return View(returnList);
+
+            var viewModel = new CustomerIndex();
+            viewModel.Customers = _dbContext.Customers.Where(c => c.Customer_PickUp_Reccuring == Today).ToList();
+
+            return View(viewModel);
         }
+
+
 
         // GET: EmployeeController/Details/5
         public ActionResult CusomterDetails(int id)
