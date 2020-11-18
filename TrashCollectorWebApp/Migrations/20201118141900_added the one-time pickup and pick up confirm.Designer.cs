@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollectorWebApp.Data;
 
 namespace TrashCollectorWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201118141900_added the one-time pickup and pick up confirm")]
+    partial class addedtheonetimepickupandpickupconfirm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,22 +50,22 @@ namespace TrashCollectorWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bd0e4201-61de-464a-9234-d2fcded7bac6",
-                            ConcurrencyStamp = "4f021cde-7136-463e-9024-e92b1077f286",
+                            Id = "b110e8d4-cc4e-4844-ab58-f11fb53fef5f",
+                            ConcurrencyStamp = "aaada375-3057-45e8-a56b-315698e990b1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a6173e3f-2671-45da-bb95-9165efaaac34",
-                            ConcurrencyStamp = "95b503c2-80b0-4a7b-a06c-191c3910fea6",
+                            Id = "0ee3567f-a40a-467a-b6de-43ccc5bc25dd",
+                            ConcurrencyStamp = "a5eea31a-1fc9-4c6b-8820-67d2789d73ad",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "afdf7086-5d50-4540-9971-cc2ce1f40e87",
-                            ConcurrencyStamp = "22532c2f-69a9-4745-94a6-3d9ffbeb93ae",
+                            Id = "79aa1a45-b2dd-49a8-9e40-6b649ca50587",
+                            ConcurrencyStamp = "f7c9382d-f688-491d-af81-c4f10872a9a3",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -246,13 +248,10 @@ namespace TrashCollectorWebApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("Balance")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("Customer_PickUp_OneTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Customer_PickUp_Reccuring")
                         .HasColumnType("nvarchar(max)");
@@ -365,8 +364,8 @@ namespace TrashCollectorWebApp.Migrations
                     b.Property<DateTime?>("Customer_PickUp_OneTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Customer_PickUp_Reccuring")
-                        .HasColumnType("int");
+                    b.Property<string>("Customer_PickUp_Reccuring")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Customer_PickUp_Temp_End")
                         .HasColumnType("datetime2");

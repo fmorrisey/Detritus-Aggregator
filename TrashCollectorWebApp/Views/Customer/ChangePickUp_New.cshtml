@@ -1,0 +1,64 @@
+﻿@model TrashCollectorWebApp.Models.PickUp
+
+@{
+    ViewData["Title"] = "ChangePickUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ChangePickUp</h1>
+
+<h4>Customer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ChangePickUp">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <input type="hidden" asp-for="Customer_ID" />
+            
+                <input type="hidden" asp-for="Customer_PickUp_Temp_Start" class="form-control" />
+                <input type="hidden" asp-for="Customer_PickUp_Temp_End" class="form-control" />
+                <input type="hidden" asp-for="Customer_PickUp_OneTime" class="form-control" />
+                           
+
+                <span asp-validation-for="Customer_ID" class="text-danger"></span>
+                
+                <span asp-validation-for="Customer_PickUp_Temp_Start" class="text-danger"></span>
+                <span asp-validation-for="Customer_PickUp_Temp_End" class="text-danger"></span>
+                <span asp-validation-for="Customer_PickUp_OneTime" class="text-danger"></span>
+
+             
+
+            </div>
+            <div class="form-group">
+                <label asp-for="customer.FullName" class="control-label">@Html.DisplayFor(c => c.customer.FullName)</label>
+            </div>
+            <div class="">
+                <h5>Location: </h5>
+                <label asp-for="customer.Line_1" class="control-label">@Html.DisplayFor(c => c.customer.Line_1)</label>
+                <label asp-for="customer.Zip" class="control-label">@Html.DisplayFor(c => c.customer.Zip)</label>
+
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Customer_PickUp_Reccuring" class="control-label"></label>
+                <input asp-for="Customer_PickUp_Reccuring" class="form-control" />
+                <span asp-validation-for="Customer_PickUp_Reccuring" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

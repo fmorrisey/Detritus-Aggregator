@@ -98,6 +98,48 @@ namespace TrashCollectorWebApp.Controllers
         }
         #endregion
 
+        // ChangePickUp - with PickUpTable
+        #region
+        // GET: CustomerController/ChangePickUp
+        public ActionResult ChangePickUpTable(int id)
+        {
+            
+            if (_dbContext.PickUp.Any(c => c.Customer_ID == id))
+            {
+
+                PickUp pickUp = _dbContext.PickUp.Find(id);
+                return View(pickUp);
+            }
+            else
+            {
+                PickUp pickUp = new PickUp();
+                pickUp.Customer_ID = id;
+                return View(pickUp);
+            }
+
+           
+
+            return View();
+        }
+
+        // POST: CustomerController/ChangePickUp
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePickUpTable(int id, Customer customer)
+        {
+            try
+            {
+                _dbContext.Customers.Update(customer);
+                _dbContext.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        #endregion
+
 
         // Suspend
         #region

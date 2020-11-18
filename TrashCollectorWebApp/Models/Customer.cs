@@ -34,7 +34,7 @@ namespace TrashCollectorWebApp.Models
         {
             get
             {
-                return FirstName + ", " + LastName;
+                return FirstName + " " + LastName;
             }
         }
 
@@ -55,14 +55,21 @@ namespace TrashCollectorWebApp.Models
         [Display(Name = "Weekly Pick Up Day (M-F)")]
         public string Customer_PickUp_Reccuring { get; set; }
 
+        [Display(Name = "One Time Pick Up")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? Customer_PickUp_OneTime { get; set; }
+
         [Display(Name = "Suspend Pick Up Start Date")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Customer_PickUp_Temp_Start { get; set; }
 
         [Display(Name = "Suspend Pick Up End Date")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Customer_PickUp_Temp_End { get; set; }
-
-        [Column(TypeName = "decimal(18,2)")] //https://stackoverflow.com/a/56494920
+        
         [Display(Name = "Balance Due")]
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "money")]
         public decimal Balance { get; set; }
 
 
