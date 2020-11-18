@@ -3,26 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TrashCollectorWebApp.Migrations
 {
-    public partial class initial : Migration
+    public partial class inital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    Address_ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Line_1 = table.Column<string>(nullable: true),
-                    Line_2 = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    Zip = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.Address_ID);
-                });
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -84,29 +68,22 @@ namespace TrashCollectorWebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "Employees",
                 columns: table => new
                 {
-                    Customer_ID = table.Column<int>(nullable: false)
+                    Employee_ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdentityUserId = table.Column<string>(nullable: true),
                     IdentityRoleId = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
-                    Line_1 = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    State = table.Column<string>(nullable: true),
-                    Zip = table.Column<int>(nullable: false),
-                    Customer_PickUp_Reccuring = table.Column<string>(nullable: true),
-                    Customer_PickUp_Temp_Start = table.Column<DateTime>(nullable: true),
-                    Customer_PickUp_Temp_End = table.Column<DateTime>(nullable: true),
-                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Title = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.Customer_ID);
+                    table.PrimaryKey("PK_Employees", x => x.Employee_ID);
                     table.ForeignKey(
-                        name: "FK_Customers_AspNetRoles_IdentityRoleId",
+                        name: "FK_Employees_AspNetRoles_IdentityRoleId",
                         column: x => x.IdentityRoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
@@ -199,31 +176,54 @@ namespace TrashCollectorWebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employees",
+                name: "Customers",
                 columns: table => new
                 {
-                    Employee_ID = table.Column<int>(nullable: false)
+                    Customer_ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdentityUserId = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(maxLength: 50, nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
-                    Address_ID = table.Column<int>(nullable: true),
-                    HireDate = table.Column<DateTime>(nullable: false)
+                    LastName = table.Column<string>(maxLength: 50, nullable: false),
+                    Line_1 = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    Zip = table.Column<int>(nullable: false),
+                    Customer_PickUp_Reccuring = table.Column<string>(nullable: true),
+                    Customer_PickUp_Temp_Start = table.Column<DateTime>(nullable: true),
+                    Customer_PickUp_Temp_End = table.Column<DateTime>(nullable: true),
+                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.Employee_ID);
+                    table.PrimaryKey("PK_Customers", x => x.Customer_ID);
                     table.ForeignKey(
-                        name: "FK_Employees_Addresses_Address_ID",
-                        column: x => x.Address_ID,
-                        principalTable: "Addresses",
-                        principalColumn: "Address_ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Employees_AspNetUsers_IdentityUserId",
+                        name: "FK_Customers_AspNetUsers_IdentityUserId",
                         column: x => x.IdentityUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PickUp",
+                columns: table => new
+                {
+                    PickUP_ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Customer_ID = table.Column<int>(nullable: false),
+                    Customer_ID1 = table.Column<int>(nullable: true),
+                    Customer_PickUp_Reccuring = table.Column<string>(nullable: true),
+                    Customer_PickUp_Temp_Start = table.Column<DateTime>(nullable: true),
+                    Customer_PickUp_Temp_End = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PickUp", x => x.PickUP_ID);
+                    table.ForeignKey(
+                        name: "FK_PickUp_Customers_Customer_ID1",
+                        column: x => x.Customer_ID1,
+                        principalTable: "Customers",
+                        principalColumn: "Customer_ID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -232,20 +232,20 @@ namespace TrashCollectorWebApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "806b519c-c552-4ae7-9c01-39faf087169a", "d05ad76c-497c-4bf3-9824-7a0658cd69c4", "Admin", "ADMIN" },
-                    { "3d3beedc-c4d5-4ff6-a1fb-2211e6478a53", "b5c298f0-ef80-4387-bf91-09929931be00", "Customer", "CUSTOMER" },
-                    { "061b0f37-2d8b-4653-b16e-d5a05b85bceb", "4b81a256-ed2c-4c49-a751-5b92c0a2987e", "Employee", "EMPLOYEE" }
+                    { "329ffd3a-d98d-4beb-b90d-15339764743e", "2f0e4a4d-b390-4408-9743-68416424147b", "Admin", "ADMIN" },
+                    { "fbee1989-f58a-4e6a-965d-6c801c787a3f", "0a1181cd-41d6-4ed8-a72b-5fd6f1d411c2", "Customer", "CUSTOMER" },
+                    { "d109a488-9141-482e-bdca-27a241c4e79e", "07527466-f6de-4ff8-ac97-c505ccd740d2", "Employee", "EMPLOYEE" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "Customer_ID", "Balance", "City", "Customer_PickUp_Reccuring", "Customer_PickUp_Temp_End", "Customer_PickUp_Temp_Start", "FirstName", "IdentityRoleId", "IdentityUserId", "LastName", "Line_1", "State", "Zip" },
-                values: new object[] { 1, 0m, null, null, null, null, "Timmy", null, null, "Test", null, null, 0 });
+                columns: new[] { "Customer_ID", "Balance", "City", "Customer_PickUp_Reccuring", "Customer_PickUp_Temp_End", "Customer_PickUp_Temp_Start", "FirstName", "IdentityUserId", "LastName", "Line_1", "State", "Zip" },
+                values: new object[] { 1, 0m, null, null, null, null, "Timmy", null, "Test", null, null, 0 });
 
             migrationBuilder.InsertData(
                 table: "Employees",
-                columns: new[] { "Employee_ID", "Address_ID", "FirstName", "HireDate", "IdentityUserId", "LastName" },
-                values: new object[] { 1, null, "Detritus", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Aggregator" });
+                columns: new[] { "Employee_ID", "FirstName", "IdentityRoleId", "IdentityUserId", "LastName", "Title" },
+                values: new object[] { 1, "Detritus", null, null, "Aggregator", "Sanitation Extraordinare" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -287,19 +287,19 @@ namespace TrashCollectorWebApp.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_IdentityRoleId",
+                name: "IX_Customers_IdentityUserId",
                 table: "Customers",
+                column: "IdentityUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_IdentityRoleId",
+                table: "Employees",
                 column: "IdentityRoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_Address_ID",
-                table: "Employees",
-                column: "Address_ID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_IdentityUserId",
-                table: "Employees",
-                column: "IdentityUserId");
+                name: "IX_PickUp_Customer_ID1",
+                table: "PickUp",
+                column: "Customer_ID1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -320,16 +320,16 @@ namespace TrashCollectorWebApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "PickUp");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Addresses");
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

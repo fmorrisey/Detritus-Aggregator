@@ -18,6 +18,7 @@ namespace TrashCollectorWebApp.Data
           
         }
                 
+        public DbSet<PickUp> PickUp { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
@@ -72,6 +73,7 @@ namespace TrashCollectorWebApp.Data
                    Title = "Sanitation Extraordinare"
                });
         }
+
 
        
 

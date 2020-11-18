@@ -50,12 +50,15 @@ namespace TrashCollectorWebApp.Models
         [DataType(DataType.PostalCode)]
         [Display(Name = "Zip Code")]
         public int Zip { get; set; }
-        
+
         //Be Careful
+        [Display(Name = "Weekly Pick Up Day (M-F)")]
         public string Customer_PickUp_Reccuring { get; set; }
-        
+
+        [Display(Name = "Suspend Pick Up Start Date")]
         public DateTime? Customer_PickUp_Temp_Start { get; set; }
-        
+
+        [Display(Name = "Suspend Pick Up End Date")]
         public DateTime? Customer_PickUp_Temp_End { get; set; }
 
         [Column(TypeName = "decimal(18,2)")] //https://stackoverflow.com/a/56494920

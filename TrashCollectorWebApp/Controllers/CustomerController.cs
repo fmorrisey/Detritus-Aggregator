@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TrashCollectorWebApp.Data;
 using TrashCollectorWebApp.Models;
@@ -33,6 +35,8 @@ namespace TrashCollectorWebApp.Controllers
             return View(details);
         }
 
+        // Create profile
+        #region
         // GET: CustomerController/Create
         public ActionResult CreateProfile(int id)
         {
@@ -48,7 +52,11 @@ namespace TrashCollectorWebApp.Controllers
         {
             try
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                customer.IdentityUserId = userId;
+                
                 _dbContext.Customers.Add(customer);
+                
                 _dbContext.SaveChanges();
 
                 return RedirectToAction(nameof(Index /*change me later*/));
@@ -59,35 +67,68 @@ namespace TrashCollectorWebApp.Controllers
                 return View(returnList);
             }
         }
+        #endregion
 
 
-        // GET: CustomerController/Create
-        public ActionResult CreatePickUp(int id)
+        // ChangePickUp
+        #region
+        // GET: CustomerController/ChangePickUp
+        public ActionResult ChangePickUp(int id)
         {
-            // Brings the current Customer profile
-            var details = _dbContext.Customers.Find(id);
-            return View(details);
+            var customer = _dbContext.Customers.Find(id);
+
+            return View(customer);
         }
 
-        // POST: CustomerController/Create
+        // POST: CustomerController/ChangePickUp
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePickUp(Customer customer)
+        public ActionResult ChangePickUp(int id, Customer customer)
         {
             try
             {
-                _dbContext.Customers.Add(customer);
+                _dbContext.Customers.Update(customer);
                 _dbContext.SaveChanges();
-
-                return RedirectToAction(nameof(Index /*change me later*/));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
-                var returnList = _dbContext.Customers.ToList();
-                return View(returnList);
+                return View();
             }
         }
+        #endregion
 
+
+        // Suspend
+        #region
+        // GET: CustomerController/Suspend
+        public ActionResult Suspend(int id)
+        {
+            var editCustomer = _dbContext.Customers.Find(id);
+            return View(editCustomer);
+        }
+
+        // POST: CustomerController/Suspend
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Suspend(int id, Customer customer)
+        {
+            try
+            {
+                _dbContext.Customers.Update(customer);
+                _dbContext.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        #endregion
+
+
+        // Edit
+        #region
         // GET: CustomerController/Edit/5
         public ActionResult Edit(int id)
         {
@@ -111,6 +152,9 @@ namespace TrashCollectorWebApp.Controllers
                 return View();
             }
         }
+        #endregion
+
+
 
         /*
         // GET: CustomerController/Delete/5
