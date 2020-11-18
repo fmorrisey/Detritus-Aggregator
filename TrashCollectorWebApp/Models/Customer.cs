@@ -79,6 +79,7 @@ namespace TrashCollectorWebApp.Models
 
         public bool ConfirmPickUp { get; set; }
 
+        [NotMapped]
         public virtual ICollection<PickUp> PickUps { get; set; }
         public virtual ICollection<Customer> Customers { get; set; }
 
