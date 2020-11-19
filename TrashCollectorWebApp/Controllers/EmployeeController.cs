@@ -31,12 +31,12 @@ namespace TrashCollectorWebApp.Controllers
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.ZipSortParm = sortOrder == "Zip_Asc" ? "Zip_Desc" : "Zip_Asc";
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date_Desc" : "";
+            ViewData["CurrentFilter"] = searchString;
             var customers = from s in _dbContext.Customers
                             select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 customers = customers.Where(s => s.LastName.Contains(searchString));
-
             }
 
             switch (sortOrder)
@@ -69,12 +69,12 @@ namespace TrashCollectorWebApp.Controllers
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.ZipSortParm = sortOrder == "Zip_Asc" ? "Zip_Desc" : "Zip_Asc";
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date_Desc" : "";
+            ViewData["CurrentFilter"] = searchString;
             var customers = from s in _dbContext.Customers
                             select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 customers = customers.Where(s => s.LastName.Contains(searchString));
-
             }
 
             switch (sortOrder)

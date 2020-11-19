@@ -28,22 +28,22 @@
                 @Html.DisplayNameFor(model => model.Zip)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer_PickUp_Reccuring)
+                <p>Weekday</p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer_PickUp_OneTime)
+                <p>One Time</p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer_PickUp_Temp_Start)
+                <p>Suspend Start</p>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer_PickUp_Temp_End)
+                <p>End</p>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Balance)
             </th>
             <th>
-                <p>Pick Up</p>
+                <p>Confirmed?</p>
             </th>
             <th></th>
         </tr>
@@ -54,7 +54,7 @@
         <tr>
             <td>
                 <a asp-controller="Customer" asp-action="Details" 
-                   asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.FullName)</a>
+                   asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.LastName)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Line_1)
@@ -83,7 +83,7 @@
             </td>
             <td>
                 <a class="btn btn-outline-secondary" asp-action="ConfirmPickUp" 
-                   asp-route-id="@item.Customer_ID">Confirm PickUp</a>
+                   asp-route-id="@item.Customer_ID">Confirm</a>
             </td>
         </tr>
         }
