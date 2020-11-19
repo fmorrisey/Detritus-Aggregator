@@ -31,10 +31,12 @@ namespace TrashCollectorWebApp.Controllers
         }
 
         // GET: CustomerController/Details/5
-        public ActionResult Details(int id)
+        
+        public ActionResult Details()
         {
-            var details = _dbContext.Customers.Find(id);
-            return View(details);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            return View(customer);
         }
 
         // GET: CustomerController/Details/5

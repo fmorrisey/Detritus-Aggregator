@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Account</h1>
 
 <div>
     <h4>Customer</h4>
@@ -18,7 +18,7 @@
             @Html.DisplayFor(model => model.FullName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Balance)
+            <u>Monthly:</u>
         </dt>
         <dd class="col-sm-10">
             <p>$12 / month</p>
@@ -33,5 +33,5 @@
 </div>
 <div>
     
-    <a asp-action="Index">Back</a>
+    <a asp-action="Details">Back</a>
 </div>
