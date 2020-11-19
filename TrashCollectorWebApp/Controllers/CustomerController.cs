@@ -126,10 +126,6 @@ namespace TrashCollectorWebApp.Controllers
                 pickUp.Customer_ID = id;
                 return View(pickUp);
             }
-
-           
-
-            return View();
         }
 
         // POST: CustomerController/ChangePickUp

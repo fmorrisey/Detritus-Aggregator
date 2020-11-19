@@ -8,6 +8,7 @@ using System.Security.Claims;
 using TrashCollectorWebApp.Data;
 using TrashCollectorWebApp.Models;
 using TrashCollectorWebApp.Models.viewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace TrashCollectorWebApp.Controllers
 {
@@ -22,10 +23,34 @@ namespace TrashCollectorWebApp.Controllers
             _dbContext = dbContext;
         }
 
-        public ActionResult Index()
+        /*public ActionResult Index()
         {
             var returnList = _dbContext.Employees.ToList();
             return View(returnList);
+        }*/
+
+        public async Task<IActionResult> Index(string sortOrder)
+        {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            var customers = from s in _dbContext.Customers
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    customers = customers.OrderByDescending(s => s.LastName);
+                    break;
+                case "Date":
+                    customers = customers.OrderBy(s => s.Zip);
+                    break;
+                case "date_desc":
+                    customers = customers.OrderByDescending(s => s.Zip);
+                    break;
+                default:
+                    customers = customers.OrderBy(s => s.LastName);
+                    break;
+            }
+            return View(await customers.AsNoTracking().ToListAsync());
         }
 
 
