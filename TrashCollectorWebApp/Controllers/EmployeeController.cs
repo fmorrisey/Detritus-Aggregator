@@ -31,8 +31,9 @@ namespace TrashCollectorWebApp.Controllers
 
         public async Task<IActionResult> Index(string sortOrder)
         {
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.ZipSortParm = sortOrder == "Zip_Asc" ? "Zip_Desc" : "Zip_Asc";
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date_Desc" : "";
             var customers = from s in _dbContext.Customers
                            select s;
             switch (sortOrder)
@@ -40,11 +41,17 @@ namespace TrashCollectorWebApp.Controllers
                 case "name_desc":
                     customers = customers.OrderByDescending(s => s.LastName);
                     break;
-                case "Date":
+                case "Zip_Asc":
                     customers = customers.OrderBy(s => s.Zip);
                     break;
-                case "date_desc":
+                case "Zip_Desc":
                     customers = customers.OrderByDescending(s => s.Zip);
+                    break;
+                case "Date_Asc":
+                    customers = customers.OrderBy(s => s.Customer_PickUp_Reccuring);
+                    break;
+                case "Date_Desc":
+                    customers = customers.OrderByDescending(s => s.Customer_PickUp_Reccuring);
                     break;
                 default:
                     customers = customers.OrderBy(s => s.LastName);
