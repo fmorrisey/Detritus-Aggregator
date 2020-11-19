@@ -29,13 +29,19 @@ namespace TrashCollectorWebApp.Controllers
             return View(returnList);
         }*/
 
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.ZipSortParm = sortOrder == "Zip_Asc" ? "Zip_Desc" : "Zip_Asc";
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date_Desc" : "";
             var customers = from s in _dbContext.Customers
                            select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                customers = customers.Where(s => s.LastName.Contains(searchString));
+                                       
+            }
+
             switch (sortOrder)
             {
                 case "name_desc":
@@ -83,6 +89,8 @@ namespace TrashCollectorWebApp.Controllers
                 .ToList();
 
             return View(viewModel);
+
+            
         }
 
 
