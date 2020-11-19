@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<TrashCollectorWebApp.Models.Customer>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pick Up Manager";
 }
 
-<h2>Index</h2>
+<h1><a asp-action="CustomerList">Pick Up Manager</a></h1>
+<h4>View List</h4>
 
 <p>
-    <a asp-action="Create">Set Up Profile New</a> /
+
     <a asp-action="PickUpToday">Today</a> /
-    <a asp-action="CustomerList">All</a>
+    <a asp-action="CustomerList">View More</a>
+    &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+    <a asp-action="Create">Set Up New Employee</a>
 </p>
 
 <form asp-action="Index" method="get">
@@ -17,7 +20,7 @@
         <p>
             Find by Last Name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
             <input type="submit" value="Search" class="btn-secondary" /> |
-            <a asp-action="Index">Back to Full List</a>
+            <a asp-action="Index">New Search</a>
         </p>
     </div>
 </form>
@@ -29,19 +32,28 @@
                 @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm })
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Line_1)
+            </th>
+            <th>
                 @Html.ActionLink("Zip", "Index", new { sortOrder = ViewBag.ZipSortParm })
             </th>
             <th>
-                @Html.ActionLink("Day of Week" , "Index", new { sortOrder = ViewBag.DateSortParm })
+                @Html.ActionLink("Day of Week", "Index", new { sortOrder = ViewBag.DateSortParm })
             </th>
-            
+
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                <a asp-controller="Customer" asp-action="Details"
+                   asp-route-id="@item.Customer_ID">
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Line_1)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Zip)
@@ -50,9 +62,6 @@
                 @Html.DisplayFor(modelItem => item.Customer_PickUp_Reccuring)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Customer_ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Customer_ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Customer_ID">Delete</a>
             </td>
         </tr>
 }

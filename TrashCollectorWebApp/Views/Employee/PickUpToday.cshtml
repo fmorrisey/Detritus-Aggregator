@@ -1,22 +1,17 @@
 ﻿@model IEnumerable<TrashCollectorWebApp.Models.Customer>
 
 @{
-    ViewData["Title"] = "PickUpToday";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    <script type="text/javascript">
-        function onCheckedChanged(s, e) {
-            if (s.GetChecked()) {
-                button.SetEnabled(false);
-                s.SetText("Enable Button");
-            } else {
-                button.SetEnabled(true);
-                s.SetText("Disable Button");
-            }
-        }
-    </script>
+    ViewData["Title"] = "Pick Up Today";
+   
 }
 
-<h1>PickUpToday</h1>
+<h1><a asp-action="CustomerList">Pick Up Manager</a></h1>
+<h4>Today's Pick Up</h4>
+
+<p>
+    <a asp-action="Index">View List</a> /
+    <a asp-action="CustomerList">View More</a>
+</p>
 
 <table class="table">
     <thead>
@@ -58,7 +53,8 @@
         {
         <tr>
             <td>
-                <a asp-controller="Customer" asp-action="Details" asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.FullName)</a>
+                <a asp-controller="Customer" asp-action="Details" 
+                   asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.FullName)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Line_1)
@@ -74,10 +70,10 @@
                 @Html.CheckBoxFor(modelItem => item.OneTimePickUp, new { @disabled = "disabled" })
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Customer_PickUp_Temp_Start)
+                @Html.DisplayFor(modelItem => item.Customer_PickUp_Temp_Start, "{0:dd/MM/yyyy}")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Customer_PickUp_Temp_End)
+                @Html.DisplayFor(modelItem => item.Customer_PickUp_Temp_End, "{0:dd/MM/yyyy}")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Balance)
@@ -86,10 +82,8 @@
                 @Html.CheckBoxFor(modelItem => item.ConfirmPickUp, new { @disabled = "disabled" })
             </td>
             <td>
-                @*<a asp-action="Edit" asp-route-id="@item.Customer_ID">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.Customer_ID">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.Customer_ID">Delete</a>*@
-                <a class="btn btn-outline-secondary" asp-action="ConfirmPickUp" asp-route-id="@item.Customer_ID">Confirm PickUp</a>
+                <a class="btn btn-outline-secondary" asp-action="ConfirmPickUp" 
+                   asp-route-id="@item.Customer_ID">Confirm PickUp</a>
             </td>
         </tr>
         }

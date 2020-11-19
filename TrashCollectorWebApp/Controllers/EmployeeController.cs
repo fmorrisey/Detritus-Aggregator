@@ -64,12 +64,41 @@ namespace TrashCollectorWebApp.Controllers
         }
 
 
-        // GET: EmployeeController
-        public ActionResult CustomerList()
+        public async Task<IActionResult> CustomerList(string sortOrder, string searchString)
         {
-            var returnList = _dbContext.Customers.ToList();
-            return View(returnList);
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.ZipSortParm = sortOrder == "Zip_Asc" ? "Zip_Desc" : "Zip_Asc";
+            ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date_Desc" : "";
+            var customers = from s in _dbContext.Customers
+                            select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                customers = customers.Where(s => s.LastName.Contains(searchString));
 
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    customers = customers.OrderByDescending(s => s.LastName);
+                    break;
+                case "Zip_Asc":
+                    customers = customers.OrderBy(s => s.Zip);
+                    break;
+                case "Zip_Desc":
+                    customers = customers.OrderByDescending(s => s.Zip);
+                    break;
+                case "Date_Asc":
+                    customers = customers.OrderBy(s => s.Customer_PickUp_Reccuring);
+                    break;
+                case "Date_Desc":
+                    customers = customers.OrderByDescending(s => s.Customer_PickUp_Reccuring);
+                    break;
+                default:
+                    customers = customers.OrderBy(s => s.LastName);
+                    break;
+            }
+            return View(await customers.AsNoTracking().ToListAsync());
         }
 
         // GET: EmployeeController

@@ -33,16 +33,22 @@
         <tr>
 
             <td>
-                <a asp-action="Details" asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.FullName)</a>
+                <a asp-action="Details" 
+                   asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.FullName)</a>
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.Line_1) / @Html.DisplayFor(modelItem => item.Zip)</a>
+                <a asp-action="Edit" 
+                   asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.Line_1) 
+                / @Html.DisplayFor(modelItem => item.Zip)</a>
             </td>
             <td>
-                <a asp-action="ChangePickUp" asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.Customer_PickUp_Reccuring)</a>
+                <a asp-action="ChangePickUp" 
+                   asp-route-id="@item.Customer_ID">
+                @Html.DisplayFor(modelItem => item.Customer_PickUp_Reccuring)</a>
             </td>
             <td>
-                <a asp-action="AccountView" asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.Balance)</a>
+                <a asp-action="AccountView" 
+                   asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.Balance)</a>
             </td>
             <td>
                 <a asp-action="Suspend" asp-route-id="@item.Customer_ID">Suspend</a> |

@@ -27,7 +27,7 @@ namespace TrashCollectorWebApp.ActionFilters
                 }
                 else if (_claimsPrincipal.IsInRole("Employee"))
                 {
-                    context.Result = new RedirectToActionResult("Index",
+                    context.Result = new RedirectToActionResult("PickUpToday",
                     "Employee", null);
                 }
             }

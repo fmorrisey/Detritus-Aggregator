@@ -72,7 +72,7 @@ namespace TrashCollectorWebApp.Data
                 {
                     PickUP_ID = 1,
                     Customer_ID = 1,
-                    Customer_PickUp_Reccuring = "M",
+                    PickUp_Reccuring = (DayOfWeek)1,
                     IsEnrolled = true,
                 }); 
 

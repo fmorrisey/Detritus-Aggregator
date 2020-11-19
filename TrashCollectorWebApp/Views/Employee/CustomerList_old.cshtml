@@ -1,42 +1,31 @@
 ﻿@model IEnumerable<TrashCollectorWebApp.Models.Customer>
 
 @{
-    ViewData["Title"] = "Pick Up Manager";
+    ViewData["Title"] = "CustomerList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1><a asp-action="CustomerList">Pick Up Manager</a></h1>
-<h4>View More Details</h4>
+<h1>CustomerList</h1>
 
 <p>
-    
-    <a asp-action="PickUpToday">Today</a>
-    
+    <a asp-action="Create"></a>
 </p>
-
-<form asp-action="Index" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Find by Last Name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value="Search" class="btn-secondary" /> |
-            <a asp-action="CustomerList">New Search</a>
-        </p>
-    </div>
-</form>
-
 <table class="table">
     <thead>
         <tr>
+
+
             <th>
-                @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                @Html.DisplayNameFor(model => model.FullName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Line_1)
             </th>
             <th>
-                @Html.ActionLink("Zip", "Index", new { sortOrder = ViewBag.ZipSortParm })
+                @Html.DisplayNameFor(model => model.Zip)
             </th>
             <th>
-                @Html.ActionLink("Day of Week", "Index", new { sortOrder = ViewBag.DateSortParm })
+                @Html.DisplayNameFor(model => model.Customer_PickUp_Reccuring)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Customer_PickUp_OneTime)
@@ -50,25 +39,23 @@
             <th>
                 @Html.DisplayNameFor(model => model.Balance)
             </th>
-            <th>
-                <p>Pick Up</p>
-            </th>
-            
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) {
+@foreach (var item in Model) {
         <tr>
+            
+            
             <td>
-                <a asp-controller="Customer" asp-action="Details"
+                <a asp-controller="Customer" asp-action="Details" 
                    asp-route-id="@item.Customer_ID">
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </a>
+                @Html.DisplayFor(modelItem => item.FullName)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Line_1)
             </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Zip)
             </td>
@@ -76,7 +63,7 @@
                 @Html.DisplayFor(modelItem => item.Customer_PickUp_Reccuring)
             </td>
             <td>
-                @Html.CheckBoxFor(modelItem => item.OneTimePickUp,
+                @Html.CheckBoxFor(modelItem => item.OneTimePickUp, 
                new { @disabled = "disabled" })
             </td>
             <td>
@@ -89,13 +76,8 @@
                 @Html.DisplayFor(modelItem => item.Balance)
             </td>
             <td>
-                @Html.CheckBoxFor(modelItem => item.ConfirmPickUp, new { @disabled = "disabled" })
-            </td>
-            <td>
-                <a class="btn btn-outline-secondary" asp-action="ConfirmPickUp"
+                <a class="btn btn-outline-secondary" asp-action="ConfirmPickUp" 
                    asp-route-id="@item.Customer_ID">Confirm PickUp</a>
-            </td>
-            <td>
             </td>
         </tr>
 }

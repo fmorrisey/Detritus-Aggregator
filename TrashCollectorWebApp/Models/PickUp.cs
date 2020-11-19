@@ -18,19 +18,19 @@ namespace TrashCollectorWebApp.Models
         public virtual Customer customer { get; set; }
 
         [Display(Name = "Weekly Pick Up Day (Mo, Tu, We, Th, Fr)")]
-        public string Customer_PickUp_Reccuring { get; set; }
+        public DayOfWeek PickUp_Reccuring { get; set; }
 
         [Display(Name = "One Time Pick Up")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? Customer_PickUp_OneTime { get; set; }
+        public DateTime? PickUp_OneTime { get; set; }
 
         [Display(Name = "Suspend Pick Up Start Date")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? Customer_PickUp_Temp_Start { get; set; }
+        public DateTime? PickUp_Temp_Start { get; set; }
 
         [Display(Name = "Suspend Pick Up End Date")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? Customer_PickUp_Temp_End { get; set; }
+        public DateTime? PickUp_Temp_End { get; set; }
 
         public bool IsEnrolled { get; set; }
         public bool OneTimePickUp { get; set; }
