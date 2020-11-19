@@ -17,17 +17,14 @@ namespace TrashCollectorWebApp.Controllers
 
         private ApplicationDbContext _dbContext;
         private string Today = "M";
+        private decimal PickUpCharge = 3;
 
         public EmployeeController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        /*public ActionResult Index()
-        {
-            var returnList = _dbContext.Employees.ToList();
-            return View(returnList);
-        }*/
+
 
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
@@ -35,11 +32,11 @@ namespace TrashCollectorWebApp.Controllers
             ViewBag.ZipSortParm = sortOrder == "Zip_Asc" ? "Zip_Desc" : "Zip_Asc";
             ViewBag.DateSortParm = String.IsNullOrEmpty(sortOrder) ? "Date_Desc" : "";
             var customers = from s in _dbContext.Customers
-                           select s;
+                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 customers = customers.Where(s => s.LastName.Contains(searchString));
-                                       
+
             }
 
             switch (sortOrder)
@@ -83,17 +80,13 @@ namespace TrashCollectorWebApp.Controllers
             userId).SingleOrDefault();
 
             var viewModel = new List<Customer>();
-            
+
             viewModel = _dbContext.Customers.Where(c => c.Customer_PickUp_Reccuring == Today)
                 .OrderByDescending(c => c.Zip == employee.Zip)
                 .ToList();
 
             return View(viewModel);
-
-            
         }
-
-
 
         // GET: EmployeeController/Details/5
         public ActionResult CusomterDetails(int id)
@@ -130,46 +123,44 @@ namespace TrashCollectorWebApp.Controllers
             }
         }
 
-        // GET: EmployeeController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: EmployeeController/Edit/5
+
+        [HttpGet]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult ConfirmPickUp(int id )
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+
+            var customer = _dbContext.Customers.Find(id);
+            customer = PickUpConfirmed(customer);
+            _dbContext.Customers.Update(customer);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction(nameof(PickUpToday));
+        }
+        
+
+        private Customer chargeCustomer(Customer customer, decimal charge)
+        {
+            customer.Balance += charge;
+            return customer;
         }
 
-        // GET: EmployeeController/Delete/5
-        public ActionResult Delete(int id)
+        private Customer PickUpConfirmed(Customer customer)
         {
-            return View();
+            if (customer.ConfirmPickUp != true)
+            {
+                customer.ConfirmPickUp = true;
+                customer = chargeCustomer(customer, PickUpCharge);
+                return customer;
+            }
+            else
+            {
+                customer.OneTimePickUp = false;
+                return customer;
+            }
+
         }
 
-        // POST: EmployeeController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+
     }
 }

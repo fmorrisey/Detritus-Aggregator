@@ -16,7 +16,7 @@ namespace TrashCollectorWebApp.Controllers
 
         private ApplicationDbContext _dbContext;
         private decimal oneTimeCost = 10;
-        private decimal reccuringCost = 3 * 4; // cost per pickup over weeks in a month
+        //private decimal reccuringCost = 3 * 4; // cost per pickup over weeks in a month
 
         public CustomerController(ApplicationDbContext dbContext)
         {
@@ -64,7 +64,7 @@ namespace TrashCollectorWebApp.Controllers
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
 
-                customer = chargeCustomer(customer, reccuringCost);
+                //Scustomer = chargeCustomer(customer, reccuringCost);
 
                 _dbContext.Customers.Add(customer);
                 
