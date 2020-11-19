@@ -23,9 +23,7 @@ namespace TrashCollectorWebApp.Controllers
         {
             _dbContext = dbContext;
         }
-
-
-
+        
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -118,8 +116,10 @@ namespace TrashCollectorWebApp.Controllers
         }
 
         // GET: EmployeeController/Details/5
-        public ActionResult CusomterDetails(int id)
+        public ActionResult Details(int id)
         {
+            ViewData["MyKey"] = "AIzaSyBaeUmClRSBgp2dqGzpAgq8RpwsgwjQmUs";
+            //ViewData["Locaiton"] = "123123" , "28812";
             var details = _dbContext.Customers.Find(id);
             return View(details);
         }
@@ -151,8 +151,6 @@ namespace TrashCollectorWebApp.Controllers
                 return View();
             }
         }
-
-
 
         [HttpGet]
         [HttpPost]

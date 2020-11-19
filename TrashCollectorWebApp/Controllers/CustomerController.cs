@@ -29,11 +29,10 @@ namespace TrashCollectorWebApp.Controllers
 
         public ActionResult Details()
         {
-            ViewData["MyKey"] = 0;
+            ViewData["MyKey"] = "AIzaSyBaeUmClRSBgp2dqGzpAgq8RpwsgwjQmUs";
+
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
-            
-            
+            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
             return View(customer);
 
         }
@@ -73,7 +72,7 @@ namespace TrashCollectorWebApp.Controllers
 
                 _dbContext.SaveChanges();
 
-                return RedirectToAction(nameof(Index /*change me later*/));
+                return RedirectToAction(nameof(Details /*change me later*/));
             }
             catch
             {
@@ -88,8 +87,8 @@ namespace TrashCollectorWebApp.Controllers
         // GET: CustomerController/ChangePickUp
         public ActionResult ChangePickUp(int id)
         {
-            var customer = _dbContext.Customers.Find(id);
-
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
             return View(customer);
         }
 
@@ -102,7 +101,7 @@ namespace TrashCollectorWebApp.Controllers
             {
                 _dbContext.Customers.Update(customer);
                 _dbContext.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             catch
             {
@@ -155,8 +154,9 @@ namespace TrashCollectorWebApp.Controllers
         // GET: CustomerController/Suspend
         public ActionResult Suspend(int id)
         {
-            var editCustomer = _dbContext.Customers.Find(id);
-            return View(editCustomer);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            return View(customer);
         }
 
         // POST: CustomerController/Suspend
@@ -168,7 +168,7 @@ namespace TrashCollectorWebApp.Controllers
             {
                 _dbContext.Customers.Update(customer);
                 _dbContext.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             catch
             {
@@ -182,8 +182,9 @@ namespace TrashCollectorWebApp.Controllers
         // GET: CustomerController/Suspend
         public ActionResult OneTime(int id)
         {
-            var editCustomer = _dbContext.Customers.Find(id);
-            return View(editCustomer);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            return View(customer);
         }
 
         // POST: CustomerController/Suspend
@@ -196,7 +197,7 @@ namespace TrashCollectorWebApp.Controllers
                 customer = isOneTime(customer);
                 _dbContext.Customers.Update(customer);
                 _dbContext.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             catch
             {
@@ -208,10 +209,11 @@ namespace TrashCollectorWebApp.Controllers
         // Edit
         #region
         // GET: CustomerController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
-            var editCustomer = _dbContext.Customers.Find(id);
-            return View(editCustomer);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            return View(customer);
         }
 
         // POST: CustomerController/Edit/5
@@ -231,8 +233,6 @@ namespace TrashCollectorWebApp.Controllers
             }
         }
         #endregion
-
-
 
         private Customer chargeCustomer(Customer customer, decimal charge)
         {
@@ -255,28 +255,6 @@ namespace TrashCollectorWebApp.Controllers
             }
 
         }
-
-        /*
-        // GET: CustomerController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CustomerController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        */
+       
     }
 }
