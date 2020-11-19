@@ -16,7 +16,7 @@ namespace TrashCollectorWebApp.Controllers
     {
 
         private ApplicationDbContext _dbContext;
-        private string Today = "M";
+        private string Today = "T";
         private decimal PickUpCharge = 3;
 
         public EmployeeController(ApplicationDbContext dbContext)

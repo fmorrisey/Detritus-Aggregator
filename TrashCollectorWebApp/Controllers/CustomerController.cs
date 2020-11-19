@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using TrashCollectorWebApp.Data;
 using TrashCollectorWebApp.Models;
 
@@ -31,20 +26,26 @@ namespace TrashCollectorWebApp.Controllers
         }
 
         // GET: CustomerController/Details/5
-        
+
         public ActionResult Details()
+        {
+            ViewData["MyKey"] = 0;
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            
+            
+            return View(customer);
+
+        }
+
+        // GET: CustomerController/Details/5
+        public ActionResult AccountView()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             return View(customer);
         }
 
-        // GET: CustomerController/Details/5
-        public ActionResult AccountView(int id)
-        {
-            var details = _dbContext.Customers.Find(id);
-            return View(details);
-        }
 
         // Create profile
         #region
@@ -69,7 +70,7 @@ namespace TrashCollectorWebApp.Controllers
                 //Scustomer = chargeCustomer(customer, reccuringCost);
 
                 _dbContext.Customers.Add(customer);
-                
+
                 _dbContext.SaveChanges();
 
                 return RedirectToAction(nameof(Index /*change me later*/));
@@ -115,7 +116,7 @@ namespace TrashCollectorWebApp.Controllers
         // GET: CustomerController/ChangePickUp
         public ActionResult ChangePickUpTable(int id)
         {
-            
+
             if (_dbContext.PickUp.Any(c => c.Customer_ID == id))
             {
 
@@ -231,7 +232,7 @@ namespace TrashCollectorWebApp.Controllers
         }
         #endregion
 
-        
+
 
         private Customer chargeCustomer(Customer customer, decimal charge)
         {
@@ -252,7 +253,7 @@ namespace TrashCollectorWebApp.Controllers
                 customer.OneTimePickUp = false;
                 return customer;
             }
-            
+
         }
 
         /*
