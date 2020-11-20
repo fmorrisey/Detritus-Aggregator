@@ -12,6 +12,7 @@ namespace TrashCollectorWebApp.Controllers
         private ApplicationDbContext _dbContext;
         private decimal oneTimeCost = 10;
         private decimal PickUpCharge = 3;
+        private decimal recurringCharge = 12;
         //private decimal reccuringCost = 3 * 4; // cost per pickup over weeks in a month
 
         public CustomerController(ApplicationDbContext dbContext)
@@ -78,7 +79,7 @@ namespace TrashCollectorWebApp.Controllers
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
-
+                customer = ChargeCustomer(customer, recurringCharge);
                 _dbContext.Customers.Add(customer);
 
                 _dbContext.SaveChanges();
@@ -120,45 +121,6 @@ namespace TrashCollectorWebApp.Controllers
             }
         }
         #endregion
-
-        // ChangePickUp - with PickUpTable
-        #region
-        // GET: CustomerController/ChangePickUp
-        public ActionResult ChangePickUpTable(int id)
-        {
-
-            if (_dbContext.PickUp.Any(c => c.Customer_ID == id))
-            {
-
-                PickUp pickUp = _dbContext.PickUp.Find(id);
-                return View(pickUp);
-            }
-            else
-            {
-                PickUp pickUp = new PickUp();
-                pickUp.Customer_ID = id;
-                return View(pickUp);
-            }
-        }
-
-        // POST: CustomerController/ChangePickUp
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ChangePickUpTable(int id, Customer customer)
-        {
-            try
-            {
-                _dbContext.Customers.Update(customer);
-                _dbContext.SaveChanges();
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        #endregion
-
 
         // Suspend
         #region

@@ -1,16 +1,14 @@
 ﻿
 @model TrashCollectorWebApp.Models.Customer
 
-
-
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    
+    @*<script src="./index.js"></script>*@
 }
 
-<h3>Profile for: @Html.DisplayFor(m => m.FullName)!</h3>
+<h3>Profile for: @Html.DisplayFor(m => m.FullName)</h3>
 
 <hr />
 <div class="col-md-6">
@@ -62,7 +60,7 @@
                 <h5><u>Customer Info:</u></h5>
             </div>
             <div class="col-sm-8 d-flex justify-content-end">
-                Receiving Service: @Html.CheckBoxFor(model => model.IsEnrolled, new { @disabled = "disabled" })?
+               
             </div>
             <div class="col-sm-3">
                 Weekday
@@ -84,6 +82,7 @@
                 <u>Suspend:</u>
             </div>
 
+
             <div class="col-sm-3">
                 Start:
             </div>
@@ -95,6 +94,7 @@
             </div>
             <div class="col-sm-9">
                 @Html.DisplayFor(model => model.Customer_PickUp_Temp_End)
+
             </div>
             <!--Accounts-->
             <div class="col-sm-12">
@@ -104,8 +104,7 @@
                 Balance Due:
             </div>
             <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.Balance)
-                </a>
+                @Html.DisplayFor(model => model.Balance)
             </div>
         </div>
     </div>
@@ -138,4 +137,8 @@
 <hr />
 <div>
     <a href="##" onClick="history.go(-1); return false;"> Return to List</a>
+</div>
+<div>
+
+    @*<a asp-action="Index">DEV ONLY </a>*@
 </div>

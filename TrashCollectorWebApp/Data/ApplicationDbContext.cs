@@ -17,26 +17,15 @@ namespace TrashCollectorWebApp.Data
         {
           
         }
-                
-        public DbSet<PickUp> PickUp { get; set; }
+        
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            
-
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<IdentityRole>()
-                .HasData(
-                new IdentityRole
-                {
-                    Name = "Admin",
-                    NormalizedName = "ADMIN"
-                });
-
+            
             modelBuilder.Entity<IdentityRole>()
                .HasData(
                new IdentityRole
@@ -65,16 +54,7 @@ namespace TrashCollectorWebApp.Data
                    LastName = "Test",
 
                });
-
-            modelBuilder.Entity<PickUp>()
-                .HasData(
-                new PickUp
-                {
-                    PickUP_ID = 1,
-                    Customer_ID = 1,
-                    PickUp_Reccuring = (DayOfWeek)1,
-                    IsEnrolled = true,
-                }); 
+                        
 
             modelBuilder.Entity<Employee>()
                .HasData(

@@ -174,6 +174,19 @@ namespace TrashCollectorWebApp.Controllers
             return RedirectToAction(nameof(PickUpToday));
         }
 
+        [HttpGet]
+        [HttpPost]
+        public ActionResult ConfirmPickUpListView(int id)
+        {
+
+            var customer = _dbContext.Customers.Find(id);
+            customer = PickUpConfirmed(customer);
+            _dbContext.Customers.Update(customer);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction(nameof(CustomerList));
+        }
+
 
         private Customer chargeCustomer(Customer customer, decimal charge)
         {
