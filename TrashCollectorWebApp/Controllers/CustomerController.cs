@@ -35,7 +35,17 @@ namespace TrashCollectorWebApp.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
 
-            return View(customer);
+            if (customer == null)
+            {
+                return RedirectToAction(nameof(CreateProfile));
+            }
+            else
+            {
+                return View(customer);
+            }
+
+
+            
 
         }
 
@@ -52,11 +62,11 @@ namespace TrashCollectorWebApp.Controllers
         #region
         // GET: CustomerController/Create
         [HttpGet]
-        public ActionResult CreateProfile(int id)
+        public ActionResult CreateProfile()
         {
-            // Brings the current Customer profile
-            var details = _dbContext.Customers.Find(id);
-            return View(details);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            return View(customer);
         }
 
         // POST: CustomerController/Create
@@ -227,7 +237,7 @@ namespace TrashCollectorWebApp.Controllers
             {
                 _dbContext.Customers.Update(customer);
                 _dbContext.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             catch
             {
