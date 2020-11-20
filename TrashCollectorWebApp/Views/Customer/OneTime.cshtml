@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>One Time</h1>
-
-<h4>Customer</h4>
+<h3>One Time</h3>
+<p>Schedule a one-time pick up</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -34,9 +33,6 @@
                 <input type="hidden" asp-for="Balance" class="form-control" />
                 
             </div>
-            <div class="form-group">
-                <label asp-for="FullName" class="control-label">@Html.DisplayFor(c => c.FullName)</label>
-            </div>
 
             <div class="">
                 <h5>Location: </h5>
@@ -52,7 +48,8 @@
             </div>
             
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <h5>Additional charge of: $10 </h5>
+                <input type="submit" value="Submit" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using TrashCollectorWebApp.Data;
 using TrashCollectorWebApp.Models;
-using TrashCollectorWebApp.Models.viewModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace TrashCollectorWebApp.Controllers
 {
@@ -23,7 +21,7 @@ namespace TrashCollectorWebApp.Controllers
         {
             _dbContext = dbContext;
         }
-        
+
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -154,7 +152,7 @@ namespace TrashCollectorWebApp.Controllers
 
         [HttpGet]
         [HttpPost]
-        public ActionResult ConfirmPickUp(int id )
+        public ActionResult ConfirmPickUp(int id)
         {
 
             var customer = _dbContext.Customers.Find(id);
@@ -164,7 +162,7 @@ namespace TrashCollectorWebApp.Controllers
 
             return RedirectToAction(nameof(PickUpToday));
         }
-        
+
 
         private Customer chargeCustomer(Customer customer, decimal charge)
         {

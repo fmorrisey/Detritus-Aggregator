@@ -5,9 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Customer</h4>
+<h3>Update Information</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,15 +22,9 @@
                 <input type="hidden" asp-for="Customer_PickUp_Temp_End" class="form-control" />
                 <input type="hidden" asp-for="Customer_PickUp_OneTime" class="form-control" />
                 <input type="hidden" asp-for="Balance" class="form-control" />
-                
-                <span asp-validation-for="IdentityUserId" class="text-danger"></span>
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-                <span asp-validation-for="LastName" class="text-danger"></span>
-                <span asp-validation-for="Customer_PickUp_Reccuring" class="text-danger"></span>
-                <span asp-validation-for="Customer_PickUp_Temp_Start" class="text-danger"></span>
-                <span asp-validation-for="Customer_PickUp_Temp_End" class="text-danger"></span>
-                <span asp-validation-for="Customer_PickUp_OneTime" class="text-danger"></span>
-                <span asp-validation-for="Balance" class="text-danger"></span>
+                <input type="hidden" asp-for="IsEnrolled" class="form-control" />
+                <input type="hidden" asp-for="ConfirmPickUp" class="form-control" />
+                <input type="hidden" asp-for="OneTimePickUp" class="form-control" />
 
             </div>
             <div class="form-group">
