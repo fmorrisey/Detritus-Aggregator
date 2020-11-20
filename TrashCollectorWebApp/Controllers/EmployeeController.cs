@@ -105,12 +105,21 @@ namespace TrashCollectorWebApp.Controllers
             userId).SingleOrDefault();
 
             var viewModel = new List<Customer>();
+            if (employee == null)
+            {
+                return RedirectToAction(nameof(Create));
+            }
+            else
+            {
+                viewModel = _dbContext.Customers.Where(c => c.Customer_PickUp_Reccuring == Today)
+                    .OrderByDescending(c => c.Zip == employee.Zip)
+                    .ToList();
+            }
 
-            viewModel = _dbContext.Customers.Where(c => c.Customer_PickUp_Reccuring == Today)
-                .OrderByDescending(c => c.Zip == employee.Zip)
-                .ToList();
 
             return View(viewModel);
+
+
         }
 
         // GET: EmployeeController/Details/5
@@ -123,10 +132,12 @@ namespace TrashCollectorWebApp.Controllers
         }
 
         // GET: EmployeeController/Create
-        public ActionResult Create(int id)
+        [HttpGet]
+        public ActionResult Create()
         {
-            var details = _dbContext.Employees.Find(id);
-            return View(details);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _dbContext.Employees.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            return View(employee);
         }
 
         // POST: EmployeeController/Create

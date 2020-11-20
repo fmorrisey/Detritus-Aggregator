@@ -39,10 +39,7 @@ namespace TrashCollectorWebApp.Models
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<Customer> Customers { get; set; }
 
-        public PickUp()
-        {
-
-        }
+        
 
 
     }

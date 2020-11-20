@@ -11,6 +11,7 @@ namespace TrashCollectorWebApp.Controllers
 
         private ApplicationDbContext _dbContext;
         private decimal oneTimeCost = 10;
+        private decimal PickUpCharge = 3;
         //private decimal reccuringCost = 3 * 4; // cost per pickup over weeks in a month
 
         public CustomerController(ApplicationDbContext dbContext)
@@ -30,11 +31,10 @@ namespace TrashCollectorWebApp.Controllers
         public ActionResult Details()
         {
             ViewData["MyKey"] = "AIzaSyBaeUmClRSBgp2dqGzpAgq8RpwsgwjQmUs";
-            
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
-            
+
             return View(customer);
 
         }
@@ -43,7 +43,7 @@ namespace TrashCollectorWebApp.Controllers
         public ActionResult AccountView()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
             return View(customer);
         }
 
@@ -51,6 +51,7 @@ namespace TrashCollectorWebApp.Controllers
         // Create profile
         #region
         // GET: CustomerController/Create
+        [HttpGet]
         public ActionResult CreateProfile(int id)
         {
             // Brings the current Customer profile
@@ -67,8 +68,6 @@ namespace TrashCollectorWebApp.Controllers
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
-
-                //Scustomer = chargeCustomer(customer, reccuringCost);
 
                 _dbContext.Customers.Add(customer);
 
@@ -168,6 +167,7 @@ namespace TrashCollectorWebApp.Controllers
         {
             try
             {
+                customer = RefundCustomer(customer, PickUpCharge);
                 _dbContext.Customers.Update(customer);
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(Details));
@@ -236,10 +236,24 @@ namespace TrashCollectorWebApp.Controllers
         }
         #endregion
 
-        private Customer chargeCustomer(Customer customer, decimal charge)
+        private Customer ChargeCustomer(Customer customer, decimal charge)
         {
             customer.Balance += charge;
             return customer;
+        }
+
+        private Customer RefundCustomer(Customer customer, decimal charge)
+        {
+            if (customer.Balance <= 0)
+            {
+                return customer;
+            }
+            else
+            {
+                customer.Balance -= charge;
+                return customer;
+            }
+
         }
 
         private Customer isOneTime(Customer customer)
@@ -247,7 +261,7 @@ namespace TrashCollectorWebApp.Controllers
             if (customer.Customer_PickUp_OneTime != default)
             {
                 customer.OneTimePickUp = true;
-                customer = chargeCustomer(customer, oneTimeCost);
+                customer = ChargeCustomer(customer, oneTimeCost);
                 return customer;
             }
             else
@@ -257,6 +271,6 @@ namespace TrashCollectorWebApp.Controllers
             }
 
         }
-       
+
     }
 }

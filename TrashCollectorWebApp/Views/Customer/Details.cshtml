@@ -9,7 +9,6 @@
 }
 
 <h3>Welcome @Html.DisplayFor(m => m.FullName)!</h3>
-
 <a asp-action="CreateProfile">Create Profile</a>
 <hr />
 <div class="col-md-6">
@@ -61,7 +60,9 @@
                 <h5><u>Customer Info:</u></h5>
             </div>
             <div class="col-sm-8 d-flex justify-content-end">
-                Schedule:&nbsp;<a asp-action="OneTime">One-Time</a>&nbsp; / &nbsp;
+                Schedule:&nbsp;
+                <a asp-action="ChangePickUp">Weekday</a>&nbsp; / &nbsp;
+                <a asp-action="OneTime">One-Time</a>&nbsp; / &nbsp;
                 <a asp-action="Suspend">Suspend</a>
             </div>
             <div class="col-sm-3">
