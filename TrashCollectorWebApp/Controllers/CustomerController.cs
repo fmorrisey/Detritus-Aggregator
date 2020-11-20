@@ -30,9 +30,11 @@ namespace TrashCollectorWebApp.Controllers
         public ActionResult Details()
         {
             ViewData["MyKey"] = "AIzaSyBaeUmClRSBgp2dqGzpAgq8RpwsgwjQmUs";
+            
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            
             return View(customer);
 
         }

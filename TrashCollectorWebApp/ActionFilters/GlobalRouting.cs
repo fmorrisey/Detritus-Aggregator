@@ -24,6 +24,7 @@ namespace TrashCollectorWebApp.ActionFilters
                 {
                     context.Result = new RedirectToActionResult("Details",
                     "Customer", null);
+
                 }
                 else if (_claimsPrincipal.IsInRole("Employee"))
                 {

@@ -5,11 +5,11 @@
 }
 
 <h1><a asp-action="CustomerList">Pick Up Manager</a></h1>
-<h4>View More Details</h4>
 
 <p>
     
-    <a asp-action="PickUpToday">Today</a>
+    <a asp-action="PickUpToday">Today</a> /
+    <a asp-action="Index">View Less</a>
     
 </p>
 
@@ -27,6 +27,7 @@
     <thead>
         <tr>
             <th>
+                
                 @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm })
             </th>
             <th>

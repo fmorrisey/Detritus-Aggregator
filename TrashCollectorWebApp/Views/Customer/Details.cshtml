@@ -1,148 +1,147 @@
-﻿@model TrashCollectorWebApp.Models.Customer
+﻿
+@model TrashCollectorWebApp.Models.Customer
+
+
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
     @*<script src="./index.js"></script>*@
 }
 
 <h3>Welcome @Html.DisplayFor(m => m.FullName)!</h3>
-<a  asp-action="CreateProfile">Create Profile</a>    
 
-@if ()
-{
-
-}
+<a asp-action="CreateProfile">Create Profile</a>
 <hr />
+<div class="col-md-6">
+
+</div>
+<div class="row">
     <div class="col-md-6">
-        
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="row">
-                <!--CUSTOMER-->
-                <div class="col-sm-8">
-                    <h5><u>Customer Info:</u></h5>
-                </div>
-                <div class="col-sm-4 d-flex justify-content-end">
-                    <a asp-action="Edit">Update</a>
-                </div>
-                <div class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.FirstName)
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.FirstName)
-                </div>
-                <div class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.LastName)
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.LastName)
-                </div>
-                <div class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.Line_1)
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.Line_1)
-                </div>
-                <div class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.City), @Html.DisplayNameFor(model => model.State)
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State)
-                </div>
-                <div class="col-sm-3">
-                    @Html.DisplayNameFor(model => model.Zip)
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.Zip)
-                </div>
-                
-                <!--SERIVICE-->
-                <div class="col-sm-4">
-                    <h5><u>Customer Info:</u></h5>
-                </div>
-                <div class="col-sm-8 d-flex justify-content-end">
-                    Schedule:&nbsp;<a asp-action="OneTime">One-Time</a>&nbsp; / &nbsp;
-                    <a asp-action="Suspend">Suspend</a>
-                </div>
-                <div class="col-sm-3">
-                    Weekday
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.Customer_PickUp_Reccuring)
-                </div>
-
-                <div class="col-sm-3">
-                    One-Time:
-                </div>
-
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.Customer_PickUp_OneTime) &nbsp;&nbsp;
-                    @Html.CheckBoxFor(model => model.OneTimePickUp, new { @disabled = "disabled" })
-                </div>
-
-                <div class="col-sm-12">
-                    <u>Suspend:</u>
-                </div>
-
-
-                <div class="col-sm-3">
-                    Start:
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.Customer_PickUp_Temp_Start)
-                </div>
-                <div class="col-sm-3">
-                    End:
-                </div>
-                <div class="col-sm-9">
-                    @Html.DisplayFor(model => model.Customer_PickUp_Temp_End)
-
-                </div>
-                <!--Accounts-->
-                <div class="col-sm-12">
-                    <u>Account:</u>
-                </div>
-                <div class="col-sm-3">
-                    Balance Due:
-                </div>
-                <div class="col-sm-9">
-                    <a asp-controller="Customer" asp-action="AccountView">
-                        @Html.DisplayFor(model => model.Balance)
-                    </a>
-                </div>
+        <div class="row">
+            <!--CUSTOMER-->
+            <div class="col-sm-8">
+                <h5><u>Customer Info:</u></h5>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div id="map" style="height: 100%; width: 100%;">
-                <script>
-                    function initMap() {
-                        // The location of Uluru
-                        const uluru = { lat: 43.067419, lng: -87.890687 };
-                        // The map, centered at Uluru
-                        const map = new google.maps.Map(document.getElementById("map"), {
-                            zoom: 12,
-                            center: uluru,
-                        });
-                        // The marker, positioned at Uluru
-                        const marker = new google.maps.Marker({
-                            position: uluru,
-                            map: map,
-                        });
-                    }
-                </script>
-                @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaeUmClRSBgp2dqGzpAgq8RpwsgwjQmUs&callback=initMap&libraries=&v=weekly"
-                        async defer></script>*@
-                <script src="https://maps.googleapis.com/maps/api/js?key=@ViewData["MyKey"]&callback=initMap"
-                        async defer></script>
+            <div class="col-sm-4 d-flex justify-content-end">
+                <a asp-action="Edit">Update</a>
+            </div>
+            <div class="col-sm-3">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </div>
+            <div class="col-sm-9">
+                @Html.DisplayFor(model => model.FirstName)
+            </div>
+            <div class="col-sm-3">
+                @Html.DisplayNameFor(model => model.LastName)
+            </div>
+            <div class="col-sm-9">
+                @Html.DisplayFor(model => model.LastName)
+            </div>
+            <div class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Line_1)
+            </div>
+            <div class="col-sm-9">
+                @Html.DisplayFor(model => model.Line_1)
+            </div>
+            <div class="col-sm-3">
+                @Html.DisplayNameFor(model => model.City), @Html.DisplayNameFor(model => model.State)
+            </div>
+            <div class="col-sm-9">
+                @Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State)
+            </div>
+            <div class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Zip)
+            </div>
+            <div class="col-sm-9">
+                @Html.DisplayFor(model => model.Zip)
+            </div>
+
+            <!--SERIVICE-->
+            <div class="col-sm-4">
+                <h5><u>Customer Info:</u></h5>
+            </div>
+            <div class="col-sm-8 d-flex justify-content-end">
+                Schedule:&nbsp;<a asp-action="OneTime">One-Time</a>&nbsp; / &nbsp;
+                <a asp-action="Suspend">Suspend</a>
+            </div>
+            <div class="col-sm-3">
+                Weekday
+            </div>
+            <div class="col-sm-9">
+                @Html.DisplayFor(model => model.Customer_PickUp_Reccuring)
+            </div>
+
+            <div class="col-sm-3">
+                One-Time:
+            </div>
+
+            <div class="col-sm-9">
+                @Html.DisplayFor(model => model.Customer_PickUp_OneTime) &nbsp;&nbsp;
+                @Html.CheckBoxFor(model => model.OneTimePickUp, new { @disabled = "disabled" })
+            </div>
+
+            <div class="col-sm-12">
+                <u>Suspend:</u>
+            </div>
+
+
+            <div class="col-sm-3">
+                Start:
+            </div>
+            <div class="col-sm-9">
+                @Html.DisplayFor(model => model.Customer_PickUp_Temp_Start)
+            </div>
+            <div class="col-sm-3">
+                End:
+            </div>
+            <div class="col-sm-9">
+                @Html.DisplayFor(model => model.Customer_PickUp_Temp_End)
+
+            </div>
+            <!--Accounts-->
+            <div class="col-sm-12">
+                <u>Account:</u>
+            </div>
+            <div class="col-sm-3">
+                Balance Due:
+            </div>
+            <div class="col-sm-9">
+                <a asp-controller="Customer" asp-action="AccountView">
+                    @Html.DisplayFor(model => model.Balance)
+                </a>
             </div>
         </div>
     </div>
-    
-    <hr />
-    <div>
-         
-        <a asp-action="Index">DEV ONLY </a>
+    <div class="col-md-6">
+        <div id="map" style="height: 100%; width: 100%;">
+            <script>
+                function initMap() {
+                    // The location of Uluru
+                    const uluru = { lat: 43.067419, lng: -87.890687 };
+                    // The map, centered at Uluru
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 12,
+                        center: uluru,
+                    });
+                    // The marker, positioned at Uluru
+                    const marker = new google.maps.Marker({
+                        position: uluru,
+                        map: map,
+                    });
+                }
+            </script>
+            @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaeUmClRSBgp2dqGzpAgq8RpwsgwjQmUs&callback=initMap&libraries=&v=weekly"
+                async defer></script>*@
+            <script src="https://maps.googleapis.com/maps/api/js?key=@ViewData["MyKey"]&callback=initMap"
+                    async defer></script>
+        </div>
     </div>
+</div>
+
+<hr />
+<div>
+
+    <a asp-action="Index">DEV ONLY </a>
+</div>
