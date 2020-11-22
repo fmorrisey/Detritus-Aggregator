@@ -42,9 +42,6 @@ namespace TrashCollectorWebApp.Data
                    NormalizedName = "EMPLOYEE"
                });
 
-            
-
-
             modelBuilder.Entity<Customer>()
                .HasData(
                new Customer
@@ -54,7 +51,6 @@ namespace TrashCollectorWebApp.Data
                    LastName = "Test",
 
                });
-                        
 
             modelBuilder.Entity<Employee>()
                .HasData(

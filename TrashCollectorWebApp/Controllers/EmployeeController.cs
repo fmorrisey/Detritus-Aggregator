@@ -153,7 +153,7 @@ namespace TrashCollectorWebApp.Controllers
                 _dbContext.Employees.Add(employee);
                 _dbContext.SaveChanges();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(PickUpToday));
             }
             catch
             {
