@@ -13,7 +13,7 @@
     
 </p>
 
-<form asp-action="Index" method="get">
+<form asp-action="CustomerList" method="get">
     <div class="form-actions no-color">
         <p>
             Find by Last Name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
@@ -91,7 +91,7 @@
                 @Html.CheckBoxFor(modelItem => item.ConfirmPickUp, new { @disabled = "disabled" })
             </td>
             <td>
-                <a class="btn btn-outline-secondary" asp-action="ConfirmPickUpListView"
+                <a class="btn btn-secondary" asp-action="ConfirmPickUpListView"
                    asp-route-id="@item.Customer_ID">Confirm</a>
             </td>
             <td>
