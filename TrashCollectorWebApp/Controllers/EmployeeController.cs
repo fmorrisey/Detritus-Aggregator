@@ -125,7 +125,7 @@ namespace TrashCollectorWebApp.Controllers
         // GET: EmployeeController/Details/5
         public ActionResult Details(int id)
         {
-            ViewData["MyKey"] = AuthKeys.AuthKeys.Google_API_Key();
+            ViewData["MyKey"] = AuthKeys.AuthKeys.Google_API_Key;
             var details = _dbContext.Customers.Find(id);
             return View(details);
         }

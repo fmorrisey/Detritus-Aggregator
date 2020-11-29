@@ -32,7 +32,7 @@ namespace TrashCollectorWebApp.Controllers
         public ActionResult Details()
         {
             
-            ViewData["MyKey"] = AuthKeys.AuthKeys.Google_API_Key();
+            ViewData["MyKey"] = AuthKeys.AuthKeys.Google_API_Key;
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();

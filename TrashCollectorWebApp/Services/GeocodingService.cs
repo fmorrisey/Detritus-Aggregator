@@ -10,7 +10,8 @@ namespace TrashCollectorWebApp.Services
     {
         public string GetGeoCodingURL(Customer customer)
         {
-            return $"AIzaSyBaeUmClRSBgp2dqGzpAgq8RpwsgwjQmUs";
+            return $"http://maps.google.com/maps/api/geocode/json?address={customer.Line_1}+{customer.City}+{customer.State}++{customer.Zip}+&keys="
+                + AuthKeys.AuthKeys.Google_API_Key;
         }
 
 
