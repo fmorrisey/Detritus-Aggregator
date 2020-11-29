@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using TrashCollectorWebApp.Models;
 
@@ -8,12 +11,38 @@ namespace TrashCollectorWebApp.Services
 {
     public class GeocodingService
     {
-        public string GetGeoCodingURL(Customer customer)
+        private string GetGeoCodingURL(Customer customer)
         {
-            return $"http://maps.google.com/maps/api/geocode/json?address={customer.Line_1}+{customer.City}+{customer.State}++{customer.Zip}+&keys="
+            return $"https://maps.google.com/maps/api/geocode/json?address={customer.Line_1}+{customer.City}+{customer.State}&key="
                 + AuthKeys.AuthKeys.Google_API_Key;
         }
+        
+        public async Task<Customer> GetGeoCoding(Customer customer)
+        {
+            string apiURL = GetGeoCodingURL(customer);
 
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(apiURL);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("applicationException/json"));
+
+                HttpResponseMessage response = await client.GetAsync(apiURL);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string data = await response.Content.ReadAsStringAsync();
+                    JObject jsonResults = JsonConvert.DeserializeObject<JObject>(data); 
+                    JToken results = jsonResults["results"][0];
+                    JToken location = results["geometry"]["location"];
+
+                    customer.Latitude = (double)location["lat"];
+                    customer.Longitude = (double)location["lng"];
+                }
+            }
+
+            return customer;
+        }
 
 
     }

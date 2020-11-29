@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using System.Security.Claims;
 using TrashCollectorWebApp.ActionFilters;
 using TrashCollectorWebApp.Data;
+using TrashCollectorWebApp.Services;
 
 namespace TrashCollectorWebApp
 {
@@ -40,6 +41,9 @@ namespace TrashCollectorWebApp
                 config.Filters.Add(typeof(GlobalRouting));
             });
 
+            // Geocoding services
+            services.AddTransient<GeocodingService>();
+            
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

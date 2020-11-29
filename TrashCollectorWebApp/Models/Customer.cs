@@ -52,10 +52,10 @@ namespace TrashCollectorWebApp.Models
         public int Zip { get; set; }
 
         [Display(Name = "Longitude")]
-        public string Longitude  { get; set; }
+        public double Longitude  { get; set; }
 
         [Display(Name = "Latitude")]
-        public string Latitude { get; set; }
+        public double Latitude { get; set; }
 
         [Display(Name = "Weekly Pick Up Day (M-F)")]
         public string Customer_PickUp_Reccuring { get; set; }

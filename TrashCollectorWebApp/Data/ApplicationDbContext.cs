@@ -49,6 +49,14 @@ namespace TrashCollectorWebApp.Data
                    Customer_ID = 1,
                    FirstName = "Timmy",
                    LastName = "Test",
+                   Line_1 = "2643 N Downer Ave",
+                   City = "Milwaukee",
+                   State = "WI",
+                   Zip = 53211,
+                   Latitude = 43.066935,
+                   Longitude = -87.878068,
+                   Balance = 20,
+                   IsEnrolled = true
 
                });
 

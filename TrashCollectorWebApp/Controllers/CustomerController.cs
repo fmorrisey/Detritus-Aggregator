@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using TrashCollectorWebApp.Data;
 using TrashCollectorWebApp.Models;
+using TrashCollectorWebApp.Services;
 
 namespace TrashCollectorWebApp.Controllers
 {
@@ -13,11 +15,13 @@ namespace TrashCollectorWebApp.Controllers
         private decimal oneTimeCost = 10;
         private decimal PickUpCharge = 3;
         private decimal recurringCharge = 12;
+        private GeocodingService geocoding;
         //private decimal reccuringCost = 3 * 4; // cost per pickup over weeks in a month
 
         public CustomerController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
+            geocoding = new GeocodingService();
         }
 
         // GET: CustomerController
@@ -32,7 +36,7 @@ namespace TrashCollectorWebApp.Controllers
         public ActionResult Details()
         {
             
-            ViewData["MyKey"] = AuthKeys.AuthKeys.Google_API_Key;
+            ViewData["APIkey"] = AuthKeys.AuthKeys.Google_API_Key;
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
@@ -74,13 +78,14 @@ namespace TrashCollectorWebApp.Controllers
         // POST: CustomerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProfile(Customer customer)
+        public async Task<ActionResult> CreateProfile(Customer customer)
         {
             try
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
                 customer = ChargeCustomer(customer, recurringCharge);
+                customer = await geocoding.GetGeoCoding(customer);
                 _dbContext.Customers.Add(customer);
 
                 _dbContext.SaveChanges();
@@ -194,10 +199,11 @@ namespace TrashCollectorWebApp.Controllers
         // POST: CustomerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Customer customer)
+        public async Task<ActionResult> Edit(int id, Customer customer)
         {
             try
             {
+                customer = await geocoding.GetGeoCoding(customer);
                 _dbContext.Customers.Update(customer);
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(Details));

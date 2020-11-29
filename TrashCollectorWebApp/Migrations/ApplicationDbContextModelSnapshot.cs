@@ -48,15 +48,15 @@ namespace TrashCollectorWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c3f6154c-51de-4f16-9629-8a1e2a13f61e",
-                            ConcurrencyStamp = "17f0a5bf-8ba5-4dd5-9a6e-caa57606cf35",
+                            Id = "e0f0c753-d840-4342-b933-0657c3c7a975",
+                            ConcurrencyStamp = "1896a29a-e730-471d-a99d-722bc977862b",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "0c482870-47f8-43b6-ae45-2f90dd8952d4",
-                            ConcurrencyStamp = "698a750f-e396-4258-aaa5-f9a3019628e5",
+                            Id = "66a1685f-7a75-46bf-92b7-e7fabb69b4a2",
+                            ConcurrencyStamp = "6d814d9b-2279-4546-97c1-dab51f146cf6",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -276,14 +276,14 @@ namespace TrashCollectorWebApp.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("Latitude")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
 
                     b.Property<string>("Line_1")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Longitude")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
 
                     b.Property<bool>("OneTimePickUp")
                         .HasColumnType("bit");
@@ -304,13 +304,18 @@ namespace TrashCollectorWebApp.Migrations
                         new
                         {
                             Customer_ID = 1,
-                            Balance = 0m,
+                            Balance = 20m,
+                            City = "Milwaukee",
                             ConfirmPickUp = false,
                             FirstName = "Timmy",
-                            IsEnrolled = false,
+                            IsEnrolled = true,
                             LastName = "Test",
+                            Latitude = 43.066935000000001,
+                            Line_1 = "2643 N Downer Ave",
+                            Longitude = -87.878067999999999,
                             OneTimePickUp = false,
-                            Zip = 0
+                            State = "WI",
+                            Zip = 53211
                         });
                 });
 
