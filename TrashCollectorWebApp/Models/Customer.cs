@@ -5,11 +5,17 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using TrashCollectorWebApp.Models.Calendar;
 
 namespace TrashCollectorWebApp.Models
 {
     public class Customer
     {
+        public Customer()
+        {
+            
+        }
+        
         [Key]
         public int Customer_ID { get; set; }
 
@@ -58,8 +64,12 @@ namespace TrashCollectorWebApp.Models
         public double Latitude { get; set; }
 
         [Display(Name = "Weekly Pick Up Day (M-F)")]
-        public string Customer_PickUp_Reccuring { get; set; }
+        public DayOfWeek? Customer_PickUp_Reccuring { get; set; }
+        public Day Day { get; set; }
 
+        [NotMapped]
+        public List<Day> DayOfWeeks { get; set; }
+        
         public bool IsEnrolled { get; set; }
         
         [Display(Name = "One Time Pick Up")]
@@ -68,11 +78,11 @@ namespace TrashCollectorWebApp.Models
 
         public bool OneTimePickUp { get; set; }
 
-        [Display(Name = "Suspend Pick Up Start Date")]
+        [Display(Name = "Suspend Start Date")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Customer_PickUp_Temp_Start { get; set; }
 
-        [Display(Name = "Suspend Pick Up End Date")]
+        [Display(Name = "Suspend End Date")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Customer_PickUp_Temp_End { get; set; }
         

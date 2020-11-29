@@ -191,7 +191,7 @@ namespace TrashCollectorWebApp.Migrations
                     Zip = table.Column<int>(nullable: false),
                     Longitude = table.Column<double>(nullable: false),
                     Latitude = table.Column<double>(nullable: false),
-                    Customer_PickUp_Reccuring = table.Column<string>(nullable: true),
+                    Customer_PickUp_Reccuring = table.Column<int>(nullable: false),
                     IsEnrolled = table.Column<bool>(nullable: false),
                     Customer_PickUp_OneTime = table.Column<DateTime>(nullable: true),
                     OneTimePickUp = table.Column<bool>(nullable: false),
@@ -216,14 +216,14 @@ namespace TrashCollectorWebApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "e0f0c753-d840-4342-b933-0657c3c7a975", "1896a29a-e730-471d-a99d-722bc977862b", "Customer", "CUSTOMER" },
-                    { "66a1685f-7a75-46bf-92b7-e7fabb69b4a2", "6d814d9b-2279-4546-97c1-dab51f146cf6", "Employee", "EMPLOYEE" }
+                    { "f0b0b0c1-235a-497d-a2d6-71af2efe641b", "304f0d34-04b1-4fb1-83d9-62ac3f4af5f4", "Customer", "CUSTOMER" },
+                    { "52b199d0-050e-4ed2-8b3f-f856c49e674f", "68cf3060-8777-4251-9072-bce6df7ad22f", "Employee", "EMPLOYEE" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "Customer_ID", "Balance", "City", "ConfirmPickUp", "Customer_PickUp_OneTime", "Customer_PickUp_Reccuring", "Customer_PickUp_Temp_End", "Customer_PickUp_Temp_Start", "FirstName", "IdentityUserId", "IsEnrolled", "LastName", "Latitude", "Line_1", "Longitude", "OneTimePickUp", "State", "Zip" },
-                values: new object[] { 1, 20m, "Milwaukee", false, null, null, null, null, "Timmy", null, true, "Test", 43.066935000000001, "2643 N Downer Ave", -87.878067999999999, false, "WI", 53211 });
+                values: new object[] { 1, 20m, "Milwaukee", false, null, 0, null, null, "Timmy", null, true, "Test", 43.066935000000001, "2643 N Downer Ave", -87.878067999999999, false, "WI", 53211 });
 
             migrationBuilder.InsertData(
                 table: "Employees",

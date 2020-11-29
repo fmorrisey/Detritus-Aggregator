@@ -22,7 +22,7 @@
                 <h5><u>Customer Info:</u></h5>
             </div>
             <div class="col-sm-4 d-flex justify-content-end">
-                
+
             </div>
             <div class="col-sm-3">
                 @Html.DisplayNameFor(model => model.FirstName)
@@ -60,7 +60,7 @@
                 <h5><u>Customer Info:</u></h5>
             </div>
             <div class="col-sm-8 d-flex justify-content-end">
-               
+
             </div>
             <div class="col-sm-3">
                 Weekday
@@ -111,22 +111,24 @@
     <div class="col-md-6">
         <div id="map" style="height: 100%; width: 100%;">
             <script>
+                var map;
+                var marker;
                 function initMap() {
-                    // The location of Uluru
-                    const uluru = { lat: 43.067419, lng: -87.890687 };
-                    // The map, centered at Uluru
-                    const map = new google.maps.Map(document.getElementById("map"), {
-                        zoom: 12,
-                        center: uluru,
+
+                    map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 14,
+                        center: { lat: @Model.Latitude, lng: @Model.Longitude },
+                        map: map
                     });
-                    // The marker, positioned at Uluru
-                    const marker = new google.maps.Marker({
-                        position: uluru,
-                        map: map,
+
+                    marker = new google.maps.Marker({
+                        position:{ lat: @Model.Latitude, lng: @Model.Longitude },
+                        map: map
                     });
                 }
             </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=@ViewData["MyKey"]&callback=initMap"
+
+            <script src="https://maps.googleapis.com/maps/api/js?key=@ViewData["APIkey"]&callback=initMap"
                     async defer></script>
         </div>
     </div>

@@ -71,7 +71,10 @@ namespace TrashCollectorWebApp.Controllers
         public ActionResult CreateProfile()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            Customer customer = new Customer();
+            var days = _dbContext.Days.ToList();
+            customer.IdentityUserId = userId;
+            customer.DayOfWeeks = days;
             return View(customer);
         }
 
@@ -107,6 +110,7 @@ namespace TrashCollectorWebApp.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            customer.DayOfWeeks = _dbContext.Days.ToList();
             return View(customer);
         }
 

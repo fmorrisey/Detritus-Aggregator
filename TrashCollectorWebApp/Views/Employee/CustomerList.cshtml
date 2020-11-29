@@ -28,16 +28,16 @@
         <tr>
             <th>
                 
-                @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                @Html.ActionLink("Last Name", "CustomerList", new { sortOrder = ViewBag.NameSortParm })
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Line_1)
             </th>
             <th>
-                @Html.ActionLink("Zip", "Index", new { sortOrder = ViewBag.ZipSortParm })
+                @Html.ActionLink("Zip", "CustomerList", new { sortOrder = ViewBag.ZipSortParm })
             </th>
             <th>
-                @Html.ActionLink("Weekday", "Index", new { sortOrder = ViewBag.DateSortParm })
+                @Html.ActionLink("Weekday", "CustomerList", new { sortOrder = ViewBag.DateSortParm })
             </th>
             <th>
                 <p>One Time</p>

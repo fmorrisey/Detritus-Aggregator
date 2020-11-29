@@ -22,6 +22,8 @@
                 <input type="hidden" asp-for="City" class="form-control" />
                 <input type="hidden" asp-for="State" class="form-control" />
                 <input type="hidden" asp-for="Zip" class="form-control" />
+                <input type="hidden" asp-for="Latitude" class="form-control" />
+                <input type="hidden" asp-for="Longitude" class="form-control" />
 
                 <input type="hidden" asp-for="Customer_PickUp_Temp_Start" class="form-control" />
                 <input type="hidden" asp-for="Customer_PickUp_Temp_End" class="form-control" />
@@ -37,8 +39,9 @@
 
             <div class="form-group">
                 <h5>Change Weekday: </h5>
-                <label asp-for="Customer_PickUp_Reccuring" class="control-label">Choose Weekday(M, T, W, R, F)</label>
-                <input asp-for="Customer_PickUp_Reccuring" class="form-control"/>
+                <label asp-for="Customer_PickUp_Reccuring" class="control-label">Choose Weekday</label>
+                <select asp-for="Customer_PickUp_Reccuring" class="form-control" asp-items='new SelectList(Model.DayOfWeeks, "Id", "WeekDay")'></select>
+                @*<select asp-for="TeamId" class="form-control" asp-items='new SelectList(Model.Teams, "Id", "Name")'></select>*@
                 <span asp-validation-for="Customer_PickUp_Reccuring" class="text-danger"></span>
             </div>
 

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TrashCollectorWebApp.Models;
+using TrashCollectorWebApp.Models.Calendar;
 
 namespace TrashCollectorWebApp.Data
 {
@@ -20,6 +21,7 @@ namespace TrashCollectorWebApp.Data
         
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Day> Days { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,6 +58,7 @@ namespace TrashCollectorWebApp.Data
                    Latitude = 43.066935,
                    Longitude = -87.878068,
                    Balance = 20,
+                   //Customer_PickUp_OneTime = 1,
                    IsEnrolled = true
 
                });
@@ -69,6 +72,32 @@ namespace TrashCollectorWebApp.Data
                    LastName = "Aggregator",
                    Title = "Sanitation Extraordinare"
                });
+            
+           
+            modelBuilder.Entity<Day>()
+               .HasData(
+               new Day
+               {
+                   Id = 1,
+                   WeekDay = "Monday"
+               }, new Day
+               {
+                   Id = 2,
+                   WeekDay = "Tuesday"
+               }, new Day
+               {
+                   Id = 3,
+                   WeekDay = "Wednesday"
+               }, new Day
+               {
+                   Id = 4,
+                   WeekDay = "Thursday"
+               }, new Day
+               {
+                   Id = 5,
+                   WeekDay = "Friday"
+               });
+            
         }
 
 

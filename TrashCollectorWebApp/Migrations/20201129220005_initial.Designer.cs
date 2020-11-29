@@ -10,7 +10,7 @@ using TrashCollectorWebApp.Data;
 namespace TrashCollectorWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201129184215_initial")]
+    [Migration("20201129220005_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,15 +50,15 @@ namespace TrashCollectorWebApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e0f0c753-d840-4342-b933-0657c3c7a975",
-                            ConcurrencyStamp = "1896a29a-e730-471d-a99d-722bc977862b",
+                            Id = "f0b0b0c1-235a-497d-a2d6-71af2efe641b",
+                            ConcurrencyStamp = "304f0d34-04b1-4fb1-83d9-62ac3f4af5f4",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "66a1685f-7a75-46bf-92b7-e7fabb69b4a2",
-                            ConcurrencyStamp = "6d814d9b-2279-4546-97c1-dab51f146cf6",
+                            Id = "52b199d0-050e-4ed2-8b3f-f856c49e674f",
+                            ConcurrencyStamp = "68cf3060-8777-4251-9072-bce6df7ad22f",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -252,8 +252,8 @@ namespace TrashCollectorWebApp.Migrations
                     b.Property<DateTime?>("Customer_PickUp_OneTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Customer_PickUp_Reccuring")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Customer_PickUp_Reccuring")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("Customer_PickUp_Temp_End")
                         .HasColumnType("datetime2");
@@ -309,6 +309,7 @@ namespace TrashCollectorWebApp.Migrations
                             Balance = 20m,
                             City = "Milwaukee",
                             ConfirmPickUp = false,
+                            Customer_PickUp_Reccuring = 0,
                             FirstName = "Timmy",
                             IsEnrolled = true,
                             LastName = "Test",
