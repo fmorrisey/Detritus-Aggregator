@@ -51,13 +51,17 @@ namespace TrashCollectorWebApp.Models
         [Display(Name = "Zip Code")]
         public int Zip { get; set; }
 
-        //Be Careful
+        [Display(Name = "Longitude")]
+        public string Longitude  { get; set; }
+
+        [Display(Name = "Latitude")]
+        public string Latitude { get; set; }
+
         [Display(Name = "Weekly Pick Up Day (M-F)")]
         public string Customer_PickUp_Reccuring { get; set; }
 
         public bool IsEnrolled { get; set; }
         
-
         [Display(Name = "One Time Pick Up")]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Customer_PickUp_OneTime { get; set; }
