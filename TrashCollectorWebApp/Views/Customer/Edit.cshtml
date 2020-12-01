@@ -3,15 +3,18 @@
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    <script src="~/js/autocomplete.js"></script>
+
 }
 
 <h3>Update Information</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
+        
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+
             <div class="form-group">
                 <input type="hidden" asp-for="Customer_ID" />
                 <input type="hidden" asp-for="IdentityUserId" class="form-control" />
@@ -29,28 +32,46 @@
                 <input type="hidden" asp-for="OneTimePickUp" class="form-control" />
 
             </div>
+            <div id="locationField">
+                <input id="autocomplete"
+                       placeholder="Enter your address"
+                       onFocus="geolocate()"
+                       type="text" />
+            </div>
             <div class="form-group">
                 <label asp-for="FullName" class="control-label">@Html.DisplayFor(c => c.FullName)</label>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="Line_1" class="control-label"></label>
-                <input asp-for="Line_1" class="form-control" required/>
+                <input asp-for="Line_1"
+                       id="route"
+                       type="text"
+                       class="form-control" required />
                 <span asp-validation-for="Line_1" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" required/>
+                <input asp-for="City"
+                       id="locality"
+                       type="text"
+                       class="form-control" required />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="State" class="control-label"></label>
-                <input asp-for="State" class="form-control" required/>
+                <input asp-for="State"
+                       id="administrative_area_level_1"
+                       type="text"
+                       class="form-control" required />
                 <span asp-validation-for="State" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Zip" class="control-label"></label>
-                <input asp-for="Zip" class="form-control" required/>
+                <input asp-for="Zip"
+                       id="postal_code"
+                       type="number"
+                       class="field form-control" required />
                 <span asp-validation-for="Zip" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -65,5 +86,9 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=@ViewData["APIkey"]&callback=initAutocomplete&libraries=places&v=weekly"
+                defer></script>
+
+    }}

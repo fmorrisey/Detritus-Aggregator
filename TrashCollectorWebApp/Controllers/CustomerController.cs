@@ -195,6 +195,7 @@ namespace TrashCollectorWebApp.Controllers
         // GET: CustomerController/Edit/5
         public ActionResult Edit()
         {
+            ViewData["APIkey"] = AuthKeys.AuthKeys.Google_API_Key;
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
             return View(customer);

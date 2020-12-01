@@ -9,12 +9,15 @@ namespace TrashCollectorWebApp.Services
     public static class DateAndTime
     {
         static string dateString = "6/11/2007";
-        static DateTime dateValue;
+        public static DateTime dateValue { 
+            get { return dateValue; }
+            set { dateOffsetValue = new DateTimeOffset(dateValue, TimeZoneInfo.Local.GetUtcOffset(dateValue)); } 
+        }
         static DateTimeOffset dateOffsetValue;
         static DateTimeFormatInfo dateTimeFormats;
 
         // Convert date representation to a date value
-        // dateValue = DateTime.Parse(dateString, CultureInfo.InvariantCulture);
-        // dateOffsetValue = new DateTimeOffset(dateValue,TimeZoneInfo.Local.GetUtcOffset(dateValue));
+        // dateValue = DateTime.Parse(dateString, CultureInfo.InvariantCulture); 
+        
     }
 }

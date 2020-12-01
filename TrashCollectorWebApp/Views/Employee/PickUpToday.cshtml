@@ -13,76 +13,90 @@
 </p>
 
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Line_1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Zip)
-            </th>
-            <th>
-                <p>Weekday</p>
-            </th>
-            <th>
-                <p>One Time</p>
-            </th>
-            <th>
-                <p>Suspend Start</p>
-            </th>
-            <th>
-                <p>End</p>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Balance)
-            </th>
-            <th>
-                <p>Confirmed?</p>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    @if (Model.Count() == 0)
+    {
+        <div class="col-12">
+            <h4 style="text-align: center;">No Pickups Today</h4><br />
+            <p style="text-align: center;">Check-in with the supervisor on-duty</p>
+        </div>
+    }
+    else
+    {
+        <thead>
             <tr>
-                <td>
-                    <a asp-action="Details"
-                       asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.LastName)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Line_1)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Zip)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer_PickUp_Reccuring)
-                </td>
-                <td>
-                    @Html.CheckBoxFor(modelItem => item.OneTimePickUp, new { @disabled = "disabled" })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer_PickUp_Temp_Start, "{0:dd/MM/yyyy}")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer_PickUp_Temp_End, "{0:dd/MM/yyyy}")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Balance)
-                </td>
-                <td>
-                    @Html.CheckBoxFor(modelItem => item.ConfirmPickUp, new { @disabled = "disabled" })
-                </td>
-                <td>
-                    <a class="btn btn-secondary" asp-action="ConfirmPickUp"
-                       asp-route-id="@item.Customer_ID">Confirm</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Line_1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Zip)
+                </th>
+                <th>
+                    <p>Weekday</p>
+                </th>
+                <th>
+                    <p>One Time</p>
+                </th>
+                <th>
+                    <p>Suspend Start</p>
+                </th>
+                <th>
+                    <p>End</p>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Balance)
+                </th>
+                <th>
+                    <p>Confirmed?</p>
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details"
+                           asp-route-id="@item.Customer_ID">@Html.DisplayFor(modelItem => item.LastName)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Line_1)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Zip)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer_PickUp_Reccuring)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.OneTimePickUp, new { @disabled = "disabled" })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer_PickUp_Temp_Start, "{0:dd/MM/yyyy}")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer_PickUp_Temp_End, "{0:dd/MM/yyyy}")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(modelItem => item.ConfirmPickUp, new { @disabled = "disabled" })
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="ConfirmPickUp"
+                           asp-route-id="@item.Customer_ID">Confirm</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+
+
 </table>

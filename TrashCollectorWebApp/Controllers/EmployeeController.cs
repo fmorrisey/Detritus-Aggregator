@@ -14,12 +14,13 @@ namespace TrashCollectorWebApp.Controllers
     {
 
         private ApplicationDbContext _dbContext;
-        private DayOfWeek Today;
+        private DayOfWeek Today = DateTime.Today.DayOfWeek;
         private decimal PickUpCharge = 3;
 
         public EmployeeController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
+            
         }
 
         public async Task<IActionResult> Index(string sortOrder, string searchString)
@@ -103,7 +104,7 @@ namespace TrashCollectorWebApp.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _dbContext.Employees.Where(c => c.IdentityUserId ==
             userId).SingleOrDefault();
-
+            
             var viewModel = new List<Customer>();
             if (employee == null)
             {
@@ -111,6 +112,7 @@ namespace TrashCollectorWebApp.Controllers
             }
             else
             {
+                
                 viewModel = _dbContext.Customers.Where(c => c.Customer_PickUp_Reccuring == Today)
                     .OrderByDescending(c => c.Zip == employee.Zip)
                     .ToList();
