@@ -12,16 +12,16 @@ namespace TrashCollectorWebApp.Controllers
     {
 
         private ApplicationDbContext _dbContext;
-        private decimal oneTimeCost = 10;
-        private decimal PickUpCharge = 3;
-        private decimal recurringCharge = 12;
-        private GeocodingService geocoding;
+        private decimal _oneTimeCost = 10;
+        private decimal _PickUpCharge = 3;
+        private decimal _recurringCharge = 12;
+        private GeocodingService _geocoding;
         //private decimal reccuringCost = 3 * 4; // cost per pickup over weeks in a month
 
-        public CustomerController(ApplicationDbContext dbContext)
+        public CustomerController(ApplicationDbContext dbContext, GeocodingService geocoding)
         {
             _dbContext = dbContext;
-            geocoding = new GeocodingService();
+            _geocoding = geocoding;
         }
 
         // GET: CustomerController
@@ -49,10 +49,6 @@ namespace TrashCollectorWebApp.Controllers
             {
                 return View(customer);
             }
-
-
-            
-
         }
 
         // GET: CustomerController/Details/5
@@ -87,13 +83,43 @@ namespace TrashCollectorWebApp.Controllers
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
-                customer = ChargeCustomer(customer, recurringCharge);
-                customer = await geocoding.GetGeoCoding(customer);
+                customer = ChargeCustomer(customer, _recurringCharge);
+                customer = await _geocoding.GetGeoCoding(customer);
                 _dbContext.Customers.Add(customer);
 
                 _dbContext.SaveChanges();
 
                 return RedirectToAction(nameof(Details /*change me later*/));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        #endregion
+
+        // Edit
+        #region
+        // GET: CustomerController/Edit/5
+        public ActionResult Edit()
+        {
+            ViewData["APIkey"] = AuthKeys.AuthKeys.Google_API_Key;
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            return View(customer);
+        }
+
+        // POST: CustomerController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(int id, Customer customer)
+        {
+            try
+            {
+                customer = await _geocoding.GetGeoCoding(customer);
+                _dbContext.Customers.Update(customer);
+                _dbContext.SaveChanges();
+                return RedirectToAction(nameof(Details));
             }
             catch
             {
@@ -149,7 +175,7 @@ namespace TrashCollectorWebApp.Controllers
         {
             try
             {
-                customer = RefundCustomer(customer, PickUpCharge);
+                customer = RefundCustomer(customer, _PickUpCharge);
                 _dbContext.Customers.Update(customer);
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(Details));
@@ -190,35 +216,7 @@ namespace TrashCollectorWebApp.Controllers
         }
         #endregion
 
-        // Edit
-        #region
-        // GET: CustomerController/Edit/5
-        public ActionResult Edit()
-        {
-            ViewData["APIkey"] = AuthKeys.AuthKeys.Google_API_Key;
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _dbContext.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
-            return View(customer);
-        }
-
-        // POST: CustomerController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, Customer customer)
-        {
-            try
-            {
-                customer = await geocoding.GetGeoCoding(customer);
-                _dbContext.Customers.Update(customer);
-                _dbContext.SaveChanges();
-                return RedirectToAction(nameof(Details));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        #endregion
+        
 
         private Customer ChargeCustomer(Customer customer, decimal charge)
         {
@@ -245,7 +243,7 @@ namespace TrashCollectorWebApp.Controllers
             if (customer.Customer_PickUp_OneTime != default)
             {
                 customer.OneTimePickUp = true;
-                customer = ChargeCustomer(customer, oneTimeCost);
+                customer = ChargeCustomer(customer, _oneTimeCost);
                 return customer;
             }
             else
